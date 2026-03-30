@@ -357,15 +357,25 @@ class TestEnhance:
         assert result_mean > original_mean
 
     def test_enhancement_contrast(self):
-        """contrast=1.5 -> contraste aplicado."""
-        img = Image.new("RGB", (100, 100), (128, 128, 128))
+        """contrast=1.5 -> contraste aplicado en imagen con variacion de pixeles."""
+        # Usar imagen con gradiente para que el contraste tenga efecto medible
+        img = Image.new("RGB", (100, 100), (50, 50, 50))
+        pixels = img.load()
+        # Mitad superior oscura, mitad inferior clara — el contraste debe acentuar la diferencia
+        for y in range(50, 100):
+            for x in range(100):
+                pixels[x, y] = (200, 200, 200)
         config = default_config()
         config = config.model_copy(
-            update={"enhancement": config.enhancement.model_copy(update={"contrast": 1.5})}
+            update={"enhancement": config.enhancement.model_copy(update={"contrast": 2.0})}
         )
         result = enhance(img, config)
-        # Con imagen gris y contraste 1.5, el resultado debe diferir del original
-        assert result.getpixel((50, 50)) != img.getpixel((50, 50))
+        # El pixel oscuro (50,50,50) debe volverse mas oscuro con mas contraste
+        dark_pixel_before = img.getpixel((50, 25))
+        dark_pixel_after = result.getpixel((50, 25))
+        assert dark_pixel_after[0] < dark_pixel_before[0], (
+            f"Expected darker pixel after contrast, got {dark_pixel_after} vs {dark_pixel_before}"
+        )
 
     def test_enhancement_skip(self):
         """brightness=1.0 y contrast=1.0 -> imagen sin cambios."""
@@ -393,11 +403,23 @@ class TestEncodeWebp:
         assert result[8:12] == b"WEBP"
 
     def test_encode_quality(self):
-        """quality=50 produce menos bytes que quality=95."""
+        """quality=50 produce menos bytes que quality=95 en imagen con detalle."""
+        import random
+
+        # Imagen con ruido (alta frecuencia) para que la diferencia de calidad sea visible
+        random.seed(42)
         img = Image.new("RGB", (200, 200), (100, 100, 100))
+        pixels = img.load()
+        for y in range(200):
+            for x in range(200):
+                r = random.randint(0, 255)
+                g = random.randint(0, 255)
+                b = random.randint(0, 255)
+                pixels[x, y] = (r, g, b)
+
         config_low = default_config()
         config_low = config_low.model_copy(
-            update={"output": config_low.output.model_copy(update={"quality": 50})}
+            update={"output": config_low.output.model_copy(update={"quality": 10})}
         )
         config_high = default_config()
         config_high = config_high.model_copy(
@@ -405,7 +427,9 @@ class TestEncodeWebp:
         )
         bytes_low = encode_webp(img, config_low)
         bytes_high = encode_webp(img, config_high)
-        assert len(bytes_low) < len(bytes_high)
+        assert len(bytes_low) < len(bytes_high), (
+            f"Expected quality=10 ({len(bytes_low)} bytes) < quality=95 ({len(bytes_high)} bytes)"
+        )
 
     def test_encode_lossless(self):
         """quality=0 -> usa lossless=True (puede producir bytes mas grandes)."""
