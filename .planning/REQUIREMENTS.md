@@ -74,7 +74,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **TEST-01**: Tests del processor: decode válido/inválido, autocrop, padding, aspect ratio, fondo blanco, tamaño output, formato WebP, enhancement, pipeline completo
 - [ ] **TEST-02**: Tests del queue: job completo, 503 cuando lleno, max_concurrent respetado, timeout, estado actualizado
-- [ ] **TEST-03**: Tests de API: process success + headers, campos faltantes, imagen inválida, health, config GET/POST, UI sirve HTML, status con historial
+- [x] **TEST-03**: Tests de API: process success + headers, campos faltantes, imagen inválida, health, config GET/POST, UI sirve HTML, status con historial
 
 ## v2 Requirements
 
@@ -155,7 +155,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DOCK-05 | Phase 1 | Complete |
 | TEST-01 | Phase 5 | Pending |
 | TEST-02 | Phase 5 | Pending |
-| TEST-03 | Phase 5 | Pending |
+| TEST-03 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 45 total

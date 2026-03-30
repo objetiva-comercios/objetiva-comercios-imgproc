@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-30T23:35:42.425Z"
-last_activity: 2026-03-30 -- Phase 05 execution started
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-30T23:39:18.501Z"
+last_activity: 2026-03-30
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 12
-  completed_plans: 10
+  completed_plans: 11
   percent: 100
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 ## Current Position
 
 Phase: 05 (tests-hardening) — EXECUTING
-Plan: 1 of 2
-Status: Executing Phase 05
-Last activity: 2026-03-30 -- Phase 05 execution started
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-30
 
 Progress: [████████████████████] 7/7 plans (100%)
 
@@ -62,6 +62,7 @@ Progress: [████████████████████] 7/7 pla
 | Phase 03 P01 | 525544 min | 2 tasks | 3 files |
 | Phase 04-web-ui-de-configuracion P01 | 8min | 2 tasks | 5 files |
 | Phase 04-web-ui-de-configuracion P02 | 3min | 1 tasks | 1 files |
+| Phase 05-tests-hardening P02 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,7 @@ Recent decisions affecting current work:
 - [Phase 04-web-ui-de-configuracion]: model_swapping via getattr(state, field, False) — retrocompatible con app.state sin el atributo
 - [Phase 04-web-ui-de-configuracion]: isnet-general-use hardcodeado no aparece en template estatico (es Jinja2 template variable) — el test lo verifica en el response renderizado por FastAPI
 - [Phase 04-web-ui-de-configuracion]: escapeHtml() implementada en tabla de jobs para sanitizar article_id — prevencion XSS basica
+- [Phase 05-tests-hardening]: Patchear app.main._swap_rembg_session (no app.router_config) porque el import es local dentro de la funcion update_config
 
 ### Pending Todos
 
@@ -111,6 +113,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T23:21:35.427Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-tests-hardening/05-CONTEXT.md
+Last session: 2026-03-30T23:39:18.497Z
+Stopped at: Completed 05-02-PLAN.md
+Resume file: None
