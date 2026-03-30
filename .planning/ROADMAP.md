@@ -52,7 +52,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Endpoints GET/POST /config + GET /status, JobRecord extendido, ConfigManager con escritura YAML
-- [ ] 02-02-PLAN.md — Watchdog hot-reload + model swap graceful + flag de supresion
+- [x] 02-02-PLAN.md — Watchdog hot-reload + model swap graceful + flag de supresion
 
 ### Phase 3: CLI + Batch Offline
 **Goal**: El operador puede procesar imagenes individuales o carpetas completas desde la terminal sin levantar el servidor HTTP, reutilizando el mismo pipeline ya probado

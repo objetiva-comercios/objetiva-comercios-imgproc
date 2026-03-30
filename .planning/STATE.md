@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-30T18:33:08.221Z"
+status: verifying
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-30T18:39:30.808Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 
 Phase: 02 (observabilidad-config-operacional) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P04 | 5 | 2 tasks | 3 files |
 | Phase 01-pipeline-core-api-basica P05 | 5 | 1 tasks | 4 files |
 | Phase 02 P01 | 8 min | 2 tasks | 5 files |
+| Phase 02-observabilidad-config-operacional P02 | 6 min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -85,6 +86,8 @@ Recent decisions affecting current work:
 - [Phase 01-pipeline-core-api-basica]: Solo config/ montado como volumen en docker-compose — permite hot-reload de config sin rebuild de imagen
 - [Phase 02]: POST /config usa deep merge parcial + validacion Pydantic estricta — rechaza TODO el request si cualquier campo es invalido
 - [Phase 02]: JobRecord usa getattr(result, 'original_size', None) para compatibilidad con mocks de test que retornan strings
+- [Phase 02]: watchdog Observer en lifespan de FastAPI con suppress_flag (threading.Event) para evitar double-reload desde POST /config
+- [Phase 02]: _swap_rembg_session usa semaphore como barrier + asyncio.to_thread para new_session; D-02 via finally garantiza model_swapping=False
 
 ### Pending Todos
 
@@ -98,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T18:33:08.217Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-30T18:39:30.803Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

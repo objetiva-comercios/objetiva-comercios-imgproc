@@ -42,8 +42,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CONF-01**: La configuración se lee de un archivo YAML (settings.yaml)
 - [x] **CONF-02**: GET /config retorna la configuración activa como JSON
 - [x] **CONF-03**: POST /config actualiza valores con deep merge y guarda el YAML
-- [ ] **CONF-04**: Si rembg.model cambia via POST /config, la sesión se recrea después de que termine el job activo
-- [ ] **CONF-05**: El servicio detecta cambios en el YAML via watchdog y recarga sin restart
+- [x] **CONF-04**: Si rembg.model cambia via POST /config, la sesión se recrea después de que termine el job activo
+- [x] **CONF-05**: El servicio detecta cambios en el YAML via watchdog y recarga sin restart
 - [x] **CONF-06**: El config snapshot se toma al inicio de cada job (inmutable durante procesamiento)
 
 ### Web UI (UI)
@@ -135,8 +135,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 2 | Complete |
 | CONF-03 | Phase 2 | Complete |
-| CONF-04 | Phase 2 | Pending |
-| CONF-05 | Phase 2 | Pending |
+| CONF-04 | Phase 2 | Complete |
+| CONF-05 | Phase 2 | Complete |
 | CONF-06 | Phase 1 | Complete |
 | UI-01 | Phase 4 | Pending |
 | UI-02 | Phase 4 | Pending |
