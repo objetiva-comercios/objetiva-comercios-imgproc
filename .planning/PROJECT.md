@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 4 complete: Web UI de Configuracion (GET /ui autocontenida, polling status, config form, dark mode, responsive)*
+*Last updated: 2026-03-30 — Phase 5 complete: Tests + Hardening (101 tests, 97% cobertura, processor 98%, queue 100%, router_api 100%)*
