@@ -12,6 +12,7 @@ import yaml
 from collections import deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from unittest.mock import AsyncMock, patch
 
 from fastapi import FastAPI
 from httpx import AsyncClient, ASGITransport
@@ -234,3 +235,43 @@ async def test_status_avg_calculation(test_app):
     assert body["avg_processing_time_ms"] == 200
     assert body["total_processed"] == 0   # contadores del queue no se tocan al inyectar directo
     assert len(body["job_history"]) == 3
+
+
+# ---------------------------------------------------------------------------
+# POST /config — invalid JSON body
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_post_config_invalid_json_body(test_app):
+    """POST /config con body que no es JSON retorna 422 con error invalid_json."""
+    async with AsyncClient(
+        transport=ASGITransport(app=test_app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/config",
+            content=b"this is not json at all",
+            headers={"Content-Type": "application/json"},
+        )
+    assert response.status_code == 422
+    body = response.json()
+    assert body["error"] == "invalid_json"
+
+
+# ---------------------------------------------------------------------------
+# POST /config — model change trigger
+# ---------------------------------------------------------------------------
+
+@pytest.mark.asyncio
+async def test_post_config_model_change(test_app):
+    """POST /config con cambio de modelo dispara _swap_rembg_session via create_task."""
+    async with AsyncClient(
+        transport=ASGITransport(app=test_app), base_url="http://test"
+    ) as client:
+        with patch("app.main._swap_rembg_session", new=AsyncMock()) as mock_swap:
+            response = await client.post(
+                "/config",
+                json={"rembg": {"model": "u2net"}},
+            )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["rembg"]["model"] == "u2net"
