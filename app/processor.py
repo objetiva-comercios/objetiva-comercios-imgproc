@@ -10,7 +10,9 @@ import time
 from io import BytesIO
 
 import rembg
-from PIL import Image, ImageEnhance, ImageOps, UnidentifiedImageError
+from PIL import Image, ImageEnhance, ImageFile, ImageOps, UnidentifiedImageError
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 from app.models import AppConfig, ProcessingResult
 
@@ -165,9 +167,47 @@ def remove_background(
 # ---------------------------------------------------------------------------
 
 
+def _clean_alpha_artifacts(alpha: Image.Image, min_ratio: float = 0.01) -> Image.Image:
+    """Elimina regiones opacas pequeñas (artefactos de rembg) del canal alpha.
+
+    Mantiene solo la region conectada mas grande. Regiones menores al min_ratio
+    del area total de pixeles opacos se eliminan.
+    """
+    import numpy as np
+
+    arr = np.array(alpha)
+    if arr.max() == 0:
+        return alpha
+
+    # Flood-fill para encontrar componentes conectados (4-connectivity)
+    from scipy import ndimage
+    labeled, num_features = ndimage.label(arr > 0)
+
+    if num_features <= 1:
+        return alpha
+
+    # Encontrar la region mas grande
+    component_sizes = ndimage.sum(arr > 0, labeled, range(1, num_features + 1))
+    largest_label = int(np.argmax(component_sizes)) + 1
+    largest_size = component_sizes[largest_label - 1]
+
+    # Eliminar regiones menores a min_ratio del area de la region mas grande
+    mask = np.zeros_like(arr)
+    for label_id in range(1, num_features + 1):
+        if component_sizes[label_id - 1] >= largest_size * min_ratio:
+            mask[labeled == label_id] = 255
+
+    cleaned = arr.copy()
+    cleaned[mask == 0] = 0
+
+    return Image.fromarray(cleaned)
+
+
 def autocrop(img: Image.Image, config: AppConfig) -> Image.Image:
     """Recorta la imagen al bounding box del producto via canal alpha.
 
+    Limpia artefactos pequeños del alpha antes de calcular el bbox para
+    evitar que fragmentos de fondo desplacen el centrado.
     Guard: si el area del bbox < 5% del total, skippea el crop.
     """
     if not config.autocrop.enabled:
@@ -177,7 +217,9 @@ def autocrop(img: Image.Image, config: AppConfig) -> Image.Image:
     # Binarizar alpha: 255 si opaco, 0 si transparente
     alpha = alpha.point(lambda p: 255 if p > config.autocrop.threshold else 0)
 
-    bbox = alpha.getbbox()
+    # Limpiar artefactos del alpha binarizado solo para calcular bbox
+    clean_alpha = _clean_alpha_artifacts(alpha)
+    bbox = clean_alpha.getbbox()
 
     if bbox is None:
         return img
@@ -197,6 +239,14 @@ def autocrop(img: Image.Image, config: AppConfig) -> Image.Image:
             )
         )
         return img
+
+    # Aplicar mascara limpia al alpha ORIGINAL (preserva gradientes de rembg)
+    import numpy as np
+    orig_alpha = np.array(img.split()[3])
+    mask = np.array(clean_alpha) > 0
+    orig_alpha[~mask] = 0
+    r, g, b, _ = img.split()
+    img = Image.merge("RGBA", (r, g, b, Image.fromarray(orig_alpha)))
 
     img = img.crop(bbox)
 
@@ -262,14 +312,15 @@ def composite(img: Image.Image, config: AppConfig) -> Image.Image:
     resample = Image.LANCZOS if scale <= 1.0 else Image.BICUBIC
     scaled = img.resize((scaled_w, scaled_h), resample)
 
-    canvas = Image.new(
-        "RGB",
-        (config.output.size, config.output.size),
-        tuple(config.output.background_color),
-    )
+    bg = tuple(config.output.background_color)
+    canvas = Image.new("RGBA", (config.output.size, config.output.size), (*bg, 255))
 
-    # Pegar usando canal alpha como mascara
-    canvas.paste(scaled, (offset_x, offset_y), mask=scaled.split()[3])
+    # Layer transparente con el producto posicionado
+    layer = Image.new("RGBA", (config.output.size, config.output.size), (0, 0, 0, 0))
+    layer.paste(scaled, (offset_x, offset_y))
+
+    # alpha_composite maneja correctamente pixeles semi-transparentes (sin halo negro)
+    canvas = Image.alpha_composite(canvas, layer).convert("RGB")
 
     logger.info(
         json.dumps(

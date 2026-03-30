@@ -52,7 +52,7 @@ def sample_large_image() -> bytes:
 def tmp_settings_yaml(tmp_path):
     """Crea un archivo temporal settings.yaml con contenido default. Retorna su path."""
     settings_content = """rembg:
-  model: "birefnet-lite"
+  model: "isnet-general-use"
   alpha_matting: false
   alpha_matting_foreground_threshold: 240
   alpha_matting_background_threshold: 10

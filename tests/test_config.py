@@ -6,7 +6,7 @@ from app.config import ConfigManager
 def test_config_loads_yaml(config_manager):
     """ConfigManager carga settings.yaml y retorna AppConfig con valores correctos."""
     config = config_manager.config
-    assert config.rembg.model == "birefnet-lite"
+    assert config.rembg.model == "isnet-general-use"
     assert config.output.size == 800
     assert config.queue.max_concurrent == 1
 
@@ -15,7 +15,7 @@ def test_config_defaults_without_file(tmp_path):
     """ConfigManager con path inexistente retorna AppConfig con defaults."""
     nonexistent = str(tmp_path / "nonexistent.yaml")
     cm = ConfigManager(config_path=nonexistent)
-    assert cm.config.rembg.model == "birefnet-lite"
+    assert cm.config.rembg.model == "isnet-general-use"
     assert cm.config.output.size == 800
     assert cm.config.queue.max_concurrent == 1
 

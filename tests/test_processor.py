@@ -482,7 +482,7 @@ class TestProcessImage:
 
         assert isinstance(result, ProcessingResult)
         assert result.article_id == "ART-042"
-        assert result.model_used == "birefnet-lite"
+        assert result.model_used == "isnet-general-use"
         assert result.original_size == "200x150"
         assert result.output_size == "800x800"
         assert isinstance(result.image_bytes, bytes)

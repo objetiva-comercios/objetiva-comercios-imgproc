@@ -3,7 +3,7 @@ from typing import Optional
 
 
 class RembgConfig(BaseModel):
-    model: str = "birefnet-lite"
+    model: str = "isnet-general-use"
     alpha_matting: bool = False
     alpha_matting_foreground_threshold: int = 240
     alpha_matting_background_threshold: int = 10

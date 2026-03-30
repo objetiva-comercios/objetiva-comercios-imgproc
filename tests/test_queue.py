@@ -243,13 +243,13 @@ async def test_config_snapshot():
     config_capturing_fn = make_config_capturing_process_fn(captured)
 
     config_in = AppConfig()
-    config_in.rembg.model = "birefnet-lite"
+    config_in.rembg.model = "isnet-general-use"
 
     await queue.submit_job(config_capturing_fn, b"img", "art-1", config_in, None)
 
     assert len(captured) == 1
     # El config que llega debe ser el mismo que pasamos
-    assert captured[0].rembg.model == "birefnet-lite"
+    assert captured[0].rembg.model == "isnet-general-use"
     # Verificar que es el mismo objeto (o al menos igual) — submit_job no debe transformarlo
     assert captured[0] == config_in
 
@@ -266,7 +266,7 @@ async def test_job_history():
     assert record.article_id == "art-1"
     assert record.status == "completed"
     assert record.processing_time_ms >= 0
-    assert record.model_used == "birefnet-lite"  # default model
+    assert record.model_used == "isnet-general-use"  # default model
 
 
 async def test_multiple_jobs_sequential():

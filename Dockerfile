@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 # Dependencias del sistema para Pillow y onnxruntime
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     curl \
     && rm -rf /var/lib/apt/lists/*
@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Pre-descargar modelo rembg en build time (per DOCK-01)
 COPY scripts/ scripts/
-RUN python scripts/download_models.py birefnet-lite
+RUN python scripts/download_models.py isnet-general-use
 
 # Copiar codigo de la aplicacion
 COPY app/ app/

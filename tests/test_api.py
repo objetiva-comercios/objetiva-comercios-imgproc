@@ -34,7 +34,7 @@ def _make_fake_result(article_id: str = "TEST-001", output_size: int = 800) -> P
         image_bytes=buf.getvalue(),
         article_id=article_id,
         processing_time_ms=100,
-        model_used="birefnet-lite",
+        model_used="isnet-general-use",
         original_size="200x150",
         output_size=f"{output_size}x{output_size}",
         steps_applied=["decode", "rembg", "autocrop", "scale", "composite", "encode"],
@@ -117,7 +117,7 @@ async def test_process_headers(client_with_queue):
     assert response.status_code == 200
     assert response.headers["x-article-id"] == "ART-999"
     assert response.headers["x-processing-time-ms"] == "100"
-    assert response.headers["x-model-used"] == "birefnet-lite"
+    assert response.headers["x-model-used"] == "isnet-general-use"
     assert response.headers["x-original-size"] == "200x150"
     assert response.headers["x-output-size"] == "800x800"
     assert "decode" in response.headers["x-steps-applied"]
@@ -290,4 +290,4 @@ async def test_health_has_model_info(async_client: AsyncClient):
     assert response.status_code == 200
     body = response.json()
     assert "model_name" in body
-    assert body["model_name"] == "birefnet-lite"
+    assert body["model_name"] == "isnet-general-use"
