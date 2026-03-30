@@ -30,7 +30,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `docker compose up` levanta el servicio sin descargar nada adicional (modelo birefnet-lite embebido en la imagen)
   4. Una segunda request mientras hay una en proceso recibe 503 si la cola esta llena, o espera su turno si hay capacidad
   5. La configuracion se lee de settings.yaml al startup y el snapshot del config es inmutable durante cada job
-**Plans**: TBD
+**Plans:** 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold proyecto + config + models + test infrastructure
+- [ ] 01-02-PLAN.md — Pipeline de procesamiento completo (7 steps)
+- [ ] 01-03-PLAN.md — Queue manager con asyncio.Semaphore
+- [ ] 01-04-PLAN.md — FastAPI app + endpoints HTTP + tests integracion
+- [ ] 01-05-PLAN.md — Docker (Dockerfile + compose + modelo pre-descargado)
 
 ### Phase 2: Observabilidad + Config Operacional
 **Goal**: El operador puede cambiar parametros del servicio (modelo, calidad, padding, limites de cola) sin reiniciar el container, y puede consultar metricas e historial de jobs via API
@@ -83,7 +90,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Pipeline Core + API Basica | 0/TBD | Not started | - |
+| 1. Pipeline Core + API Basica | 0/5 | Planning complete | - |
 | 2. Observabilidad + Config Operacional | 0/TBD | Not started | - |
 | 3. CLI + Batch Offline | 0/TBD | Not started | - |
 | 4. Web UI de Configuracion | 0/TBD | Not started | - |
