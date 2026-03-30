@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Pipeline Core + API Basica** - Pipeline completo de procesamiento de imagenes corriendo en Docker, integrable con n8n desde el dia 1
 - [ ] **Phase 2: Observabilidad + Config Operacional** - Hot-reload de YAML sin restart, metricas de estado y config via API
 - [x] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente (completed 2026-03-30)
-- [ ] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser
+- [x] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser (completed 2026-03-30)
 - [ ] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados
 
 ## Phase Details
@@ -78,11 +78,11 @@ Plans:
   3. Cambiar el modelo rembg, el padding o la calidad WebP en la UI y presionar Guardar persiste el cambio via POST /config
   4. La UI se ve correctamente en modo oscuro (prefers-color-scheme: dark) y en un telefono movil
 **UI hint**: yes
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Router UI + health fix + tests de integracion
-- [ ] 04-02-PLAN.md — Template HTML completo con frontend-design (UI final)
+- [x] 04-02-PLAN.md — Template HTML completo con frontend-design (UI final)
 
 ### Phase 5: Tests + Hardening
 **Goal**: El comportamiento del servicio bajo condiciones normales y edge cases esta verificado por tests automatizados que se pueden correr en CI
@@ -104,5 +104,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Pipeline Core + API Basica | 2/5 | In Progress|  |
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
-| 4. Web UI de Configuracion | 1/2 | In Progress|  |
+| 4. Web UI de Configuracion | 2/2 | Complete   | 2026-03-30 |
 | 5. Tests + Hardening | 0/TBD | Not started | - |

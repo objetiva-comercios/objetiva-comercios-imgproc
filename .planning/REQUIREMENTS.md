@@ -49,10 +49,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Web UI (UI)
 
 - [x] **UI-01**: GET /ui sirve una página HTML autocontenida (Jinja2 + vanilla JS, sin dependencias externas)
-- [ ] **UI-02**: La UI muestra estado del servicio en tiempo real (polling /health cada 5s)
-- [ ] **UI-03**: La UI permite configurar modelo rembg, alpha matting, output size/quality/background, padding, autocrop, enhancement, y queue limits
-- [ ] **UI-04**: La UI tiene botón guardar (POST /config), restaurar defaults, y ver YAML actual
-- [ ] **UI-05**: La UI respeta prefers-color-scheme: dark y es mobile-friendly
+- [x] **UI-02**: La UI muestra estado del servicio en tiempo real (polling /health cada 5s)
+- [x] **UI-03**: La UI permite configurar modelo rembg, alpha matting, output size/quality/background, padding, autocrop, enhancement, y queue limits
+- [x] **UI-04**: La UI tiene botón guardar (POST /config), restaurar defaults, y ver YAML actual
+- [x] **UI-05**: La UI respeta prefers-color-scheme: dark y es mobile-friendly
 
 ### CLI (CLI)
 
@@ -139,10 +139,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-05 | Phase 2 | Complete |
 | CONF-06 | Phase 1 | Complete |
 | UI-01 | Phase 4 | Complete |
-| UI-02 | Phase 4 | Pending |
-| UI-03 | Phase 4 | Pending |
-| UI-04 | Phase 4 | Pending |
-| UI-05 | Phase 4 | Pending |
+| UI-02 | Phase 4 | Complete |
+| UI-03 | Phase 4 | Complete |
+| UI-04 | Phase 4 | Complete |
+| UI-05 | Phase 4 | Complete |
 | CLI-01 | Phase 3 | Complete |
 | CLI-02 | Phase 3 | Complete |
 | CLI-03 | Phase 3 | Complete |
