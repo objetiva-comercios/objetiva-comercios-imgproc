@@ -4,237 +4,1155 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Standardizer - Config</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <style>
-    :root { --bg-primary: #ffffff; --text-primary: #1a1a1a; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg-primary: #0f0f0f; --text-primary: #f0f0f0; }
+    /* ── Reset & Custom Properties ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:    #ffffff;
+      --bg-secondary:  #f5f5f5;
+      --bg-tertiary:   #e8e8e8;
+      --text-primary:  #1a1a1a;
+      --text-secondary:#666666;
+      --border-color:  #e0e0e0;
+      --accent:        #2563eb;
+      --accent-hover:  #1d4ed8;
+      --success:       #16a34a;
+      --warning:       #d97706;
+      --danger:        #dc2626;
+      --card-bg:       #ffffff;
+      --card-shadow:   0 1px 3px rgba(0,0,0,0.1);
     }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg-primary); color: var(--text-primary); margin: 0; padding: 1rem; }
-    .toast { position: fixed; bottom: 1rem; right: 1rem; padding: 0.75rem 1.25rem; border-radius: 6px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-    .toast.visible { opacity: 1; }
-    .toast-success { background: #22c55e; color: #fff; }
-    .toast-error { background: #ef4444; color: #fff; }
-    #swap-banner { background: #f59e0b; color: #fff; padding: 0.5rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
-    form { display: grid; gap: 0.75rem; max-width: 600px; }
-    label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.875rem; }
-    input, select { padding: 0.4rem 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.875rem; }
-    button { padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.875rem; background: #3b82f6; color: #fff; }
-    button:hover { background: #2563eb; }
-    pre { background: #f3f4f6; padding: 1rem; border-radius: 4px; overflow-x: auto; font-size: 0.75rem; }
-    #jobs-table { margin-top: 1rem; font-size: 0.8rem; }
-    #status-card { margin-bottom: 1rem; font-size: 0.8rem; background: #f9fafb; padding: 0.75rem; border-radius: 4px; }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary:    #0f0f0f;
+        --bg-secondary:  #1a1a1a;
+        --bg-tertiary:   #2a2a2a;
+        --text-primary:  #f0f0f0;
+        --text-secondary:#a0a0a0;
+        --border-color:  #333333;
+        --accent:        #3b82f6;
+        --accent-hover:  #60a5fa;
+        --success:       #22c55e;
+        --warning:       #f59e0b;
+        --danger:        #ef4444;
+        --card-bg:       #1a1a1a;
+        --card-shadow:   0 1px 3px rgba(0,0,0,0.3);
+      }
+    }
+
+    /* ── Base ───────────────────────────────────────────────────── */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-header h1 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .page-header i[data-lucide] {
+      color: var(--accent);
+    }
+
+    /* ── Cards ──────────────────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.875rem;
+    }
+
+    /* ── Status Card ────────────────────────────────────────────── */
+    .status-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .status-dot.online  { background: var(--success); box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+    .status-dot.offline { background: var(--danger);  box-shadow: 0 0 0 3px rgba(220,38,38,0.15); }
+
+    .status-label {
+      font-weight: 500;
+      font-size: 0.9375rem;
+    }
+
+    .status-state {
+      margin-left: auto;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-item {
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      padding: 0.625rem 0.75rem;
+    }
+
+    .stat-label {
+      font-size: 0.6875rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.125rem;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Swap Banner ────────────────────────────────────────────── */
+    .swap-banner {
+      background: var(--warning);
+      color: #000;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* ── Jobs Table ─────────────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: 0.5rem 0.625rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--text-primary);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .empty-row td {
+      text-align: center;
+      color: var(--text-secondary);
+      font-style: italic;
+      padding: 1rem;
+    }
+
+    /* ── Badges ─────────────────────────────────────────────────── */
+    .badge {
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .badge-completed { background: var(--success); color: white; }
+    .badge-error     { background: var(--danger);  color: white; }
+    .badge-pending   { background: var(--warning); color: #000; }
+
+    /* ── Collapsible Sections ───────────────────────────────────── */
+    .section-header {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .section-header:hover { background: var(--bg-tertiary); }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .section-title i[data-lucide] {
+      color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .section-chevron {
+      transition: transform 0.3s ease;
+      color: var(--text-secondary);
+    }
+
+    .section-chevron.open { transform: rotate(180deg); }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .section-content.open { max-height: 2000px; }
+
+    /* ── Form Grid & Controls ───────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem 0 0.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr !important; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.875rem;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* ── Slider ─────────────────────────────────────────────────── */
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 4px;
+      cursor: pointer;
+    }
+
+    .slider-value {
+      min-width: 2.5rem;
+      text-align: right;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ── Toggle Switch ──────────────────────────────────────────── */
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.375rem 0;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--bg-tertiary);
+      border-radius: 24px;
+      transition: background 0.2s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .toggle input:checked + .slider { background: var(--accent); }
+    .toggle input:checked + .slider::before { transform: translateX(20px); }
+
+    .toggle-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    /* ── Color Picker ───────────────────────────────────────────── */
+    input[type="color"] {
+      width: 48px;
+      height: 36px;
+      padding: 2px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--bg-secondary);
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    .color-hex {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+
+    /* ── Alpha Matting Fields ───────────────────────────────────── */
+    #alpha-fields {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      #alpha-fields { grid-template-columns: 1fr; }
+    }
+
+    /* ── Buttons ────────────────────────────────────────────────── */
+    .btn-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .btn-group { flex-direction: column; }
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    button i[data-lucide] { width: 16px; height: 16px; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover { background: var(--bg-tertiary); }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover { opacity: 0.88; }
+
+    /* ── YAML View ──────────────────────────────────────────────── */
+    #yaml-view {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    /* ── Toast ──────────────────────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 1000;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transform: translateY(0.5rem);
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    #toast.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .toast-success { background: var(--success); color: white; }
+    .toast-error   { background: var(--danger);  color: white; }
+
+    /* ── Divider ─────────────────────────────────────────────────── */
+    .section-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 0.75rem 0;
+    }
   </style>
 </head>
 <body>
-  <h1>Image Standardizer</h1>
-  <div id="status-card"></div>
-  <div id="swap-banner" style="display:none">Model swap en progreso...</div>
+<div class="container">
 
-  <form id="config-form">
-    <fieldset>
-      <legend>rembg</legend>
-      <label>Modelo
-        <select id="rembg-model">
-          {% for model in valid_models %}
-          <option value="{{ model }}" {% if model == config.rembg.model %}selected{% endif %}>{{ model }}</option>
-          {% endfor %}
-        </select>
-      </label>
-      <label><input type="checkbox" id="rembg-alpha-matting" {% if config.rembg.alpha_matting %}checked{% endif %}> Alpha matting</label>
-      <label>Foreground threshold
-        <input type="number" id="am-fg" value="{{ config.rembg.alpha_matting_foreground_threshold }}" min="0" max="255">
-      </label>
-      <label>Background threshold
-        <input type="number" id="am-bg" value="{{ config.rembg.alpha_matting_background_threshold }}" min="0" max="255">
-      </label>
-      <label>Erode size
-        <input type="number" id="am-erode" value="{{ config.rembg.alpha_matting_erode_size }}" min="0">
-      </label>
-    </fieldset>
+  <!-- ── Header ───────────────────────────────────────────────── -->
+  <header class="page-header">
+    <i data-lucide="settings" width="22" height="22"></i>
+    <h1>Image Standardizer</h1>
+  </header>
 
-    <fieldset>
-      <legend>Output</legend>
-      <label>Tamano (px)
-        <input type="number" id="output-size" value="{{ config.output.size }}" min="1" max="4096">
-      </label>
-      <label>Calidad WebP (1-100)
-        <input type="range" id="output-quality" min="1" max="100" value="{{ config.output.quality }}">
-      </label>
-      <label>Color de fondo
-        <input type="color" id="output-bg-color">
-      </label>
-    </fieldset>
+  <!-- ── Swap Banner (D-04) ───────────────────────────────────── -->
+  <div id="swap-banner" class="swap-banner" style="display:none">
+    <i data-lucide="loader" width="18" height="18"></i>
+    Cambiando modelo, por favor espere...
+  </div>
 
-    <fieldset>
-      <legend>Padding</legend>
-      <label><input type="checkbox" id="padding-enabled" {% if config.padding.enabled %}checked{% endif %}> Habilitado</label>
-      <label>Porcentaje (0-50)
-        <input type="range" id="padding-percent" min="0" max="50" value="{{ config.padding.percent }}">
-      </label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Autocrop</legend>
-      <label><input type="checkbox" id="autocrop-enabled" {% if config.autocrop.enabled %}checked{% endif %}> Habilitado</label>
-      <label>Threshold
-        <input type="number" id="autocrop-threshold" value="{{ config.autocrop.threshold }}" min="0" max="255">
-      </label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Enhancement</legend>
-      <label>Brillo (0.1-3.0)
-        <input type="range" id="enhancement-brightness" min="0.1" max="3.0" step="0.1" value="{{ config.enhancement.brightness }}">
-      </label>
-      <label>Contraste (0.1-3.0)
-        <input type="range" id="enhancement-contrast" min="0.1" max="3.0" step="0.1" value="{{ config.enhancement.contrast }}">
-      </label>
-    </fieldset>
-
-    <fieldset>
-      <legend>Cola</legend>
-      <label>Max concurrent
-        <input type="number" id="queue-max-concurrent" value="{{ config.queue.max_concurrent }}" min="1">
-      </label>
-      <label>Max queue size
-        <input type="number" id="queue-max-queue-size" value="{{ config.queue.max_queue_size }}" min="1">
-      </label>
-      <label>Timeout (seg)
-        <input type="number" id="queue-timeout" value="{{ config.queue.timeout_seconds }}" min="1">
-      </label>
-    </fieldset>
-
-    <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
-      <button type="button" id="save-btn" onclick="saveConfig()">Guardar</button>
-      <button type="button" id="restore-btn" onclick="restoreDefaults()">Restaurar defaults</button>
-      <button type="button" id="yaml-btn" onclick="toggleYaml()">Ver YAML</button>
+  <!-- ── Status Card (D-07) ───────────────────────────────────── -->
+  <div id="status-card" class="card">
+    <div class="status-header">
+      <span class="status-dot offline" id="status-indicator"></span>
+      <span class="status-label">Servicio</span>
+      <span class="status-state" id="status-state-text">Conectando...</span>
     </div>
-  </form>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-label">Modelo</div>
+        <div class="stat-value" id="stat-model" title="">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Cola activa</div>
+        <div class="stat-value" id="stat-queue">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Uptime</div>
+        <div class="stat-value" id="stat-uptime">—</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Procesados</div>
+        <div class="stat-value" id="stat-total">—</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- ── Jobs Table (D-08) ────────────────────────────────────── -->
+  <div class="card">
+    <div class="card-title">Ultimos trabajos</div>
+    <div class="table-wrapper">
+      <table id="jobs-table">
+        <thead>
+          <tr>
+            <th>Articulo</th>
+            <th>Estado</th>
+            <th>Tiempo</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="jobs-tbody">
+          <tr class="empty-row"><td colspan="4">Sin datos aun...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       CONFIGURACION — Secciones colapsables (D-01, D-02, D-05)
+  ══════════════════════════════════════════════════════════════ -->
+
+  <!-- ── Rembg ────────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('rembg-content')">
+      <span class="section-title">
+        <i data-lucide="cpu"></i>
+        Rembg — Eliminacion de fondo
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-rembg-content"></i>
+    </div>
+    <div id="rembg-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label for="rembg-model">Modelo</label>
+          <select id="rembg-model">
+            {% for model in valid_models %}
+            <option value="{{ model }}"{% if model == config.rembg.model %} selected{% endif %}>{{ model }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <div class="toggle-wrapper">
+            <label class="toggle">
+              <input type="checkbox" id="rembg-alpha-matting"
+                {% if config.rembg.alpha_matting %}checked{% endif %}
+                onchange="toggleAlphaMatting(this.checked)">
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label">Alpha matting</span>
+          </div>
+        </div>
+
+        <div id="alpha-fields" style="{% if not config.rembg.alpha_matting %}display:none{% endif %}">
+          <div class="form-group">
+            <label for="am-fg">Foreground threshold (0-255)</label>
+            <input type="number" id="am-fg"
+              value="{{ config.rembg.alpha_matting_foreground_threshold }}"
+              min="0" max="255">
+          </div>
+          <div class="form-group">
+            <label for="am-bg">Background threshold (0-255)</label>
+            <input type="number" id="am-bg"
+              value="{{ config.rembg.alpha_matting_background_threshold }}"
+              min="0" max="255">
+          </div>
+          <div class="form-group">
+            <label for="am-erode">Erode size</label>
+            <input type="number" id="am-erode"
+              value="{{ config.rembg.alpha_matting_erode_size }}"
+              min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Output ───────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('output-content')">
+      <span class="section-title">
+        <i data-lucide="image"></i>
+        Output — Imagen resultante
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-output-content"></i>
+    </div>
+    <div id="output-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="output-size">Tamano (px)</label>
+          <input type="number" id="output-size"
+            value="{{ config.output.size }}" min="1" max="4096">
+        </div>
+
+        <div class="form-group">
+          <label for="output-quality">Calidad WebP: <span id="quality-display">{{ config.output.quality }}</span></label>
+          <div class="slider-row">
+            <input type="range" id="output-quality" min="1" max="100"
+              value="{{ config.output.quality }}"
+              oninput="document.getElementById('quality-display').textContent = this.value">
+            <span class="slider-value">{{ config.output.quality }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Color de fondo</label>
+          <div class="color-row">
+            <input type="color" id="output-bg-color">
+            <span class="color-hex" id="bg-color-hex"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Padding ──────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('padding-content')">
+      <span class="section-title">
+        <i data-lucide="square"></i>
+        Padding — Margen alrededor del producto
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-padding-content"></i>
+    </div>
+    <div id="padding-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group">
+          <div class="toggle-wrapper">
+            <label class="toggle">
+              <input type="checkbox" id="padding-enabled"
+                {% if config.padding.enabled %}checked{% endif %}>
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label">Habilitado</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="padding-percent">Porcentaje: <span id="padding-display">{{ config.padding.percent }}</span>%</label>
+          <div class="slider-row">
+            <input type="range" id="padding-percent" min="0" max="50"
+              value="{{ config.padding.percent }}"
+              oninput="document.getElementById('padding-display').textContent = this.value">
+            <span class="slider-value">{{ config.padding.percent }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Autocrop ──────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('autocrop-content')">
+      <span class="section-title">
+        <i data-lucide="crop"></i>
+        Autocrop — Recorte automatico
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-autocrop-content"></i>
+    </div>
+    <div id="autocrop-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group">
+          <div class="toggle-wrapper">
+            <label class="toggle">
+              <input type="checkbox" id="autocrop-enabled"
+                {% if config.autocrop.enabled %}checked{% endif %}>
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label">Habilitado</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="autocrop-threshold">Threshold (0-255)</label>
+          <input type="number" id="autocrop-threshold"
+            value="{{ config.autocrop.threshold }}" min="0" max="255">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Enhancement ──────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('enhancement-content')">
+      <span class="section-title">
+        <i data-lucide="sliders"></i>
+        Enhancement — Mejoras de imagen
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-enhancement-content"></i>
+    </div>
+    <div id="enhancement-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="enhancement-brightness">Brillo: <span id="brightness-display">{{ config.enhancement.brightness }}</span></label>
+          <div class="slider-row">
+            <input type="range" id="enhancement-brightness" min="0.1" max="3.0" step="0.1"
+              value="{{ config.enhancement.brightness }}"
+              oninput="document.getElementById('brightness-display').textContent = parseFloat(this.value).toFixed(1)">
+            <span class="slider-value" id="brightness-slider-val">{{ config.enhancement.brightness }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="enhancement-contrast">Contraste: <span id="contrast-display">{{ config.enhancement.contrast }}</span></label>
+          <div class="slider-row">
+            <input type="range" id="enhancement-contrast" min="0.1" max="3.0" step="0.1"
+              value="{{ config.enhancement.contrast }}"
+              oninput="document.getElementById('contrast-display').textContent = parseFloat(this.value).toFixed(1)">
+            <span class="slider-value" id="contrast-slider-val">{{ config.enhancement.contrast }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Queue ────────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="section-header" onclick="toggleSection('queue-content')">
+      <span class="section-title">
+        <i data-lucide="layers"></i>
+        Cola — Control de concurrencia
+      </span>
+      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-queue-content"></i>
+    </div>
+    <div id="queue-content" class="section-content open">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="queue-max-concurrent">Max. trabajos concurrentes</label>
+          <input type="number" id="queue-max-concurrent"
+            value="{{ config.queue.max_concurrent }}" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="queue-max-queue-size">Max. tamano de cola</label>
+          <input type="number" id="queue-max-queue-size"
+            value="{{ config.queue.max_queue_size }}" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="queue-timeout">Timeout (segundos)</label>
+          <input type="number" id="queue-timeout"
+            value="{{ config.queue.timeout_seconds }}" min="1">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Action Buttons (D-04, D-06) ─────────────────────────── -->
+  <div class="btn-group">
+    <button class="btn-primary" id="save-btn" onclick="saveConfig()">
+      <i data-lucide="save"></i>
+      Guardar
+    </button>
+    <button class="btn-secondary" id="restore-btn" onclick="restoreDefaults()">
+      <i data-lucide="rotate-ccw"></i>
+      Restaurar defaults
+    </button>
+    <button class="btn-secondary" id="yaml-btn" onclick="toggleYaml()">
+      <i data-lucide="code-2"></i>
+      Ver YAML
+    </button>
+  </div>
+
+  <!-- ── YAML View (D-06) ─────────────────────────────────────── -->
   <pre id="yaml-view" style="display:none"></pre>
-  <div id="jobs-table"></div>
-  <div id="toast" class="toast"></div>
 
-  <script>
-    const CONFIG_DEFAULTS = {{ config_defaults | tojson }};
+</div><!-- /container -->
 
-    function rgbArrayToHex(arr) {
-      return '#' + arr.map(v => v.toString(16).padStart(2, '0')).join('');
+<!-- ── Toast (D-03) ─────────────────────────────────────────── -->
+<div id="toast" class="toast"></div>
+
+<script>
+  // ── Constants ────────────────────────────────────────────────
+  const CONFIG_DEFAULTS = {{ config_defaults | tojson }};
+
+  // ── Utility Functions ────────────────────────────────────────
+  function rgbArrayToHex(arr) {
+    return '#' + arr.map(v => v.toString(16).padStart(2, '0')).join('');
+  }
+
+  function hexToRgbArray(hex) {
+    const n = parseInt(hex.replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+
+  function formatUptime(seconds) {
+    if (seconds === undefined || seconds === null) return '—';
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    if (h > 0) return `${h}h ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+  }
+
+  function formatTimestamp(ts) {
+    if (!ts) return '—';
+    try {
+      const d = new Date(ts);
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const hh = String(d.getHours()).padStart(2, '0');
+      const min = String(d.getMinutes()).padStart(2, '0');
+      return `${dd}/${mm} ${hh}:${min}`;
+    } catch (_) { return ts; }
+  }
+
+  // ── Toast (D-03) ─────────────────────────────────────────────
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast toast-${type} visible`;
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.className = 'toast';
+    }, 3000);
+  }
+
+  // ── Collapsible Sections (D-01) ──────────────────────────────
+  function toggleSection(id) {
+    const content = document.getElementById(id);
+    const chevron = document.getElementById('chevron-' + id);
+    if (!content) return;
+    content.classList.toggle('open');
+    if (chevron) chevron.classList.toggle('open');
+  }
+
+  // ── Alpha Matting toggle ─────────────────────────────────────
+  function toggleAlphaMatting(show) {
+    const fields = document.getElementById('alpha-fields');
+    if (fields) fields.style.display = show ? 'grid' : 'none';
+  }
+
+  // ── Status Card update (D-07) ────────────────────────────────
+  function updateStatusCard(data) {
+    const indicator = document.getElementById('status-indicator');
+    const stateText = document.getElementById('status-state-text');
+    const statModel  = document.getElementById('stat-model');
+    const statQueue  = document.getElementById('stat-queue');
+    const statUptime = document.getElementById('stat-uptime');
+
+    const isOnline = data.status === 'ok' && !data.model_swapping;
+    indicator.className = 'status-dot ' + (isOnline ? 'online' : 'offline');
+    stateText.textContent = data.model_swapping ? 'Cambiando modelo...' : (data.status === 'ok' ? 'Activo' : 'Degradado');
+
+    if (statModel) {
+      const modelName = data.model_name || '—';
+      statModel.textContent = modelName;
+      statModel.title = modelName;
     }
-    function hexToRgbArray(hex) {
-      const n = parseInt(hex.slice(1), 16);
-      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    if (statQueue && data.queue) {
+      statQueue.textContent = `${data.queue.active_jobs ?? 0} / ${data.queue.max_concurrent ?? '?'}`;
+    }
+    if (statUptime) {
+      statUptime.textContent = formatUptime(data.uptime_seconds);
+    }
+  }
+
+  // ── Jobs Table update (D-08) ─────────────────────────────────
+  function updateJobsTable(jobs) {
+    const tbody = document.getElementById('jobs-tbody');
+    if (!tbody) return;
+
+    if (!jobs || jobs.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="4">Sin trabajos registrados aun...</td></tr>';
+      return;
     }
 
-    document.getElementById('output-bg-color').value = rgbArrayToHex({{ config.output.background_color | tojson }});
+    tbody.innerHTML = jobs.slice(0, 10).map(job => {
+      const statusClass = job.status === 'completed' ? 'badge-completed'
+                        : job.status === 'error'     ? 'badge-error'
+                        : 'badge-pending';
+      const timeStr = job.processing_time_ms !== undefined && job.processing_time_ms !== null
+        ? `${job.processing_time_ms} ms`
+        : '—';
+      return `<tr>
+        <td>${escapeHtml(job.article_id ?? '—')}</td>
+        <td><span class="badge ${statusClass}">${escapeHtml(job.status ?? '—')}</span></td>
+        <td>${timeStr}</td>
+        <td>${formatTimestamp(job.timestamp)}</td>
+      </tr>`;
+    }).join('');
+  }
 
-    async function fetchHealth() {
-      try {
-        const r = await fetch('/health');
-        const d = await r.json();
-        document.getElementById('status-card').textContent = JSON.stringify(d, null, 2);
-        document.getElementById('swap-banner').style.display = d.model_swapping ? 'block' : 'none';
-      } catch (e) {}
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ── Polling /health (D-07, D-04) ─────────────────────────────
+  async function fetchHealth() {
+    try {
+      const resp = await fetch('/health');
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+
+      updateStatusCard(data);
+
+      // Swap banner (D-04)
+      const banner = document.getElementById('swap-banner');
+      if (banner) banner.style.display = (data.model_swapping) ? 'flex' : 'none';
+
+    } catch (err) {
+      const indicator = document.getElementById('status-indicator');
+      const stateText = document.getElementById('status-state-text');
+      if (indicator) indicator.className = 'status-dot offline';
+      if (stateText) stateText.textContent = 'Sin conexion';
     }
+  }
 
-    async function fetchStatus() {
-      try {
-        const r = await fetch('/status');
-        const d = await r.json();
-        document.getElementById('jobs-table').textContent = JSON.stringify(d.job_history?.slice(0, 10), null, 2);
-      } catch (e) {}
-    }
+  // ── Polling /status (D-08) ───────────────────────────────────
+  async function fetchStatus() {
+    try {
+      const resp = await fetch('/status');
+      if (!resp.ok) return;
+      const data = await resp.json();
 
-    function showToast(msg, type) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.className = 'toast toast-' + type + ' visible';
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => { t.className = 'toast'; }, 3000);
-    }
+      updateJobsTable(data.job_history || []);
 
-    async function saveConfig() {
-      const payload = {
-        rembg: {
-          model: document.getElementById('rembg-model').value,
-          alpha_matting: document.getElementById('rembg-alpha-matting').checked,
-          alpha_matting_foreground_threshold: parseInt(document.getElementById('am-fg').value),
-          alpha_matting_background_threshold: parseInt(document.getElementById('am-bg').value),
-          alpha_matting_erode_size: parseInt(document.getElementById('am-erode').value)
-        },
-        output: {
-          size: parseInt(document.getElementById('output-size').value),
-          quality: parseInt(document.getElementById('output-quality').value),
-          background_color: hexToRgbArray(document.getElementById('output-bg-color').value)
-        },
-        padding: {
-          enabled: document.getElementById('padding-enabled').checked,
-          percent: parseInt(document.getElementById('padding-percent').value)
-        },
-        autocrop: {
-          enabled: document.getElementById('autocrop-enabled').checked,
-          threshold: parseInt(document.getElementById('autocrop-threshold').value)
-        },
-        enhancement: {
-          brightness: parseFloat(document.getElementById('enhancement-brightness').value),
-          contrast: parseFloat(document.getElementById('enhancement-contrast').value)
-        },
-        queue: {
-          max_concurrent: parseInt(document.getElementById('queue-max-concurrent').value),
-          max_queue_size: parseInt(document.getElementById('queue-max-queue-size').value),
-          timeout_seconds: parseInt(document.getElementById('queue-timeout').value)
-        }
-      };
-      try {
-        const r = await fetch('/config', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (r.ok) {
-          showToast('Configuracion guardada', 'success');
-        } else {
-          const e = await r.json();
-          showToast('Error: ' + e.detail, 'error');
-        }
-      } catch (e) {
-        showToast('Error de red', 'error');
+      // Update total in stat card
+      const statTotal = document.getElementById('stat-total');
+      if (statTotal && data.total_processed !== undefined) {
+        statTotal.textContent = data.total_processed;
       }
+    } catch (_) {
+      // Tabla queda con datos anteriores
     }
+  }
 
-    async function restoreDefaults() {
-      if (!confirm('Restaurar valores por defecto?')) return;
-      try {
-        const r = await fetch('/config', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(CONFIG_DEFAULTS)
-        });
-        if (r.ok) {
-          showToast('Defaults restaurados', 'success');
-          location.reload();
-        }
-      } catch (e) {
-        showToast('Error', 'error');
+  // ── Save Config (D-05, UI-04) ────────────────────────────────
+  async function saveConfig() {
+    const payload = {
+      rembg: {
+        model: document.getElementById('rembg-model').value,
+        alpha_matting: document.getElementById('rembg-alpha-matting').checked,
+        alpha_matting_foreground_threshold: parseInt(document.getElementById('am-fg').value) || 0,
+        alpha_matting_background_threshold: parseInt(document.getElementById('am-bg').value) || 0,
+        alpha_matting_erode_size: parseInt(document.getElementById('am-erode').value) || 0
+      },
+      output: {
+        size: parseInt(document.getElementById('output-size').value) || 800,
+        quality: parseInt(document.getElementById('output-quality').value) || 85,
+        background_color: hexToRgbArray(document.getElementById('output-bg-color').value)
+      },
+      padding: {
+        enabled: document.getElementById('padding-enabled').checked,
+        percent: parseInt(document.getElementById('padding-percent').value) || 0
+      },
+      autocrop: {
+        enabled: document.getElementById('autocrop-enabled').checked,
+        threshold: parseInt(document.getElementById('autocrop-threshold').value) || 0
+      },
+      enhancement: {
+        brightness: parseFloat(document.getElementById('enhancement-brightness').value) || 1.0,
+        contrast:   parseFloat(document.getElementById('enhancement-contrast').value)   || 1.0
+      },
+      queue: {
+        max_concurrent: parseInt(document.getElementById('queue-max-concurrent').value) || 1,
+        max_queue_size: parseInt(document.getElementById('queue-max-queue-size').value) || 10,
+        timeout_seconds: parseInt(document.getElementById('queue-timeout').value) || 120
       }
-    }
+    };
 
-    async function toggleYaml() {
-      const el = document.getElementById('yaml-view');
-      if (el.style.display === 'none') {
-        const r = await fetch('/config');
-        const d = await r.json();
-        el.textContent = JSON.stringify(d, null, 2);
-        el.style.display = 'block';
+    try {
+      const resp = await fetch('/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (resp.ok) {
+        showToast('Configuracion guardada', 'success');
       } else {
-        el.style.display = 'none';
+        const err = await resp.json().catch(() => ({ detail: 'Error desconocido' }));
+        showToast('Error: ' + (err.detail || err.error || 'Error al guardar'), 'error');
       }
+    } catch (e) {
+      showToast('Error de red al guardar', 'error');
     }
+  }
 
+  // ── Restore Defaults (D-06) ──────────────────────────────────
+  async function restoreDefaults() {
+    if (!confirm('Restaurar todos los valores por defecto? Esta accion sobrescribira la configuracion actual.')) return;
+    try {
+      const resp = await fetch('/config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(CONFIG_DEFAULTS)
+      });
+      if (resp.ok) {
+        showToast('Defaults restaurados', 'success');
+        setTimeout(() => location.reload(), 800);
+      } else {
+        showToast('Error al restaurar defaults', 'error');
+      }
+    } catch (e) {
+      showToast('Error de red', 'error');
+    }
+  }
+
+  // ── Toggle YAML View (D-06) ──────────────────────────────────
+  async function toggleYaml() {
+    const el = document.getElementById('yaml-view');
+    if (!el) return;
+    if (el.style.display === 'none') {
+      try {
+        const resp = await fetch('/config');
+        const data = await resp.json();
+        el.textContent = JSON.stringify(data, null, 2);
+        el.style.display = 'block';
+      } catch (e) {
+        showToast('Error al cargar configuracion', 'error');
+      }
+    } else {
+      el.style.display = 'none';
+    }
+  }
+
+  // ── Init ─────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    // Set color picker from Jinja2-rendered RGB array
+    const bgColor = {{ config.output.background_color | tojson }};
+    const hexVal = rgbArrayToHex(bgColor);
+    document.getElementById('output-bg-color').value = hexVal;
+    const hexLabel = document.getElementById('bg-color-hex');
+    if (hexLabel) hexLabel.textContent = hexVal;
+
+    // Update color hex label on change
+    document.getElementById('output-bg-color').addEventListener('input', function () {
+      const hexLabel = document.getElementById('bg-color-hex');
+      if (hexLabel) hexLabel.textContent = this.value;
+    });
+
+    // Sync slider displayed values (may have been set by Jinja2)
+    const qualitySlider = document.getElementById('output-quality');
+    const qualityVal = document.getElementById('quality-display');
+    if (qualitySlider && qualityVal) qualityVal.textContent = qualitySlider.value;
+
+    const paddingSlider = document.getElementById('padding-percent');
+    const paddingVal = document.getElementById('padding-display');
+    if (paddingSlider && paddingVal) paddingVal.textContent = paddingSlider.value;
+
+    const brightnessSlider = document.getElementById('enhancement-brightness');
+    const brightnessVal = document.getElementById('brightness-display');
+    if (brightnessSlider && brightnessVal) brightnessVal.textContent = parseFloat(brightnessSlider.value).toFixed(1);
+
+    const contrastSlider = document.getElementById('enhancement-contrast');
+    const contrastVal = document.getElementById('contrast-display');
+    if (contrastSlider && contrastVal) contrastVal.textContent = parseFloat(contrastSlider.value).toFixed(1);
+
+    // Also sync secondary slider value spans
+    document.getElementById('output-quality').addEventListener('input', function () {
+      const el = this.nextElementSibling;
+      if (el && el.classList.contains('slider-value')) el.textContent = this.value;
+    });
+    document.getElementById('padding-percent').addEventListener('input', function () {
+      const el = this.nextElementSibling;
+      if (el && el.classList.contains('slider-value')) el.textContent = this.value;
+    });
+    document.getElementById('enhancement-brightness').addEventListener('input', function () {
+      const el = this.nextElementSibling;
+      if (el && el.classList.contains('slider-value')) el.textContent = parseFloat(this.value).toFixed(1);
+    });
+    document.getElementById('enhancement-contrast').addEventListener('input', function () {
+      const el = this.nextElementSibling;
+      if (el && el.classList.contains('slider-value')) el.textContent = parseFloat(this.value).toFixed(1);
+    });
+
+    // Start polling
     fetchHealth();
     fetchStatus();
     setInterval(fetchHealth, 5000);
     setInterval(fetchStatus, 5000);
-  </script>
+
+    // Init Lucide icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  });
+</script>
 </body>
 </html>
