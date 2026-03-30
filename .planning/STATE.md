@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 4 context gathered
-last_updated: "2026-03-30T21:45:45.768Z"
+status: executing
+stopped_at: Completed 04-web-ui-de-configuracion-01-PLAN.md
+last_updated: "2026-03-30T22:28:36.410Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 10
+  completed_plans: 9
   percent: 100
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Recibir cualquier imagen de producto y devolver un WebP limpio, estandarizado, listo para catalogo — sin intervencion manual, sin dependencias externas, sin configuracion compleja.
-**Current focus:** Phase 03 — cli-batch-offline
+**Current focus:** Phase 04 — web-ui-de-configuracion
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 04 (web-ui-de-configuracion) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-03-30
 
 Progress: [████████████████████] 7/7 plans (100%)
@@ -60,6 +60,7 @@ Progress: [████████████████████] 7/7 pla
 | Phase 02 P01 | 8 min | 2 tasks | 5 files |
 | Phase 02-observabilidad-config-operacional P02 | 6 min | 2 tasks | 4 files |
 | Phase 03 P01 | 525544 min | 2 tasks | 3 files |
+| Phase 04-web-ui-de-configuracion P01 | 8min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 02]: _swap_rembg_session usa semaphore como barrier + asyncio.to_thread para new_session; D-02 via finally garantiza model_swapping=False
 - [Phase 03]: CLI llama process_image() sincrono sin asyncio (D-11): correcto para context CLI
 - [Phase 03]: Lazy init rembg via _rembg_session global: serve y config no cargan modelo ONNX
+- [Phase 04-web-ui-de-configuracion]: Jinja2Templates con Path(__file__).parent/templates (path absoluto) — evita fallo por CWD relativo en uvicorn
+- [Phase 04-web-ui-de-configuracion]: Template stub ui.html incluye todos los IDs de controles — Plan 02 reemplaza solo el HTML/CSS visual
+- [Phase 04-web-ui-de-configuracion]: model_swapping via getattr(state, field, False) — retrocompatible con app.state sin el atributo
 
 ### Pending Todos
 
@@ -104,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T21:45:45.763Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-web-ui-de-configuracion/04-CONTEXT.md
+Last session: 2026-03-30T22:28:36.405Z
+Stopped at: Completed 04-web-ui-de-configuracion-01-PLAN.md
+Resume file: None

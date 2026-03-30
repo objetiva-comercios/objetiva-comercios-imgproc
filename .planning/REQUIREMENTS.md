@@ -48,7 +48,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Web UI (UI)
 
-- [ ] **UI-01**: GET /ui sirve una página HTML autocontenida (Jinja2 + vanilla JS, sin dependencias externas)
+- [x] **UI-01**: GET /ui sirve una página HTML autocontenida (Jinja2 + vanilla JS, sin dependencias externas)
 - [ ] **UI-02**: La UI muestra estado del servicio en tiempo real (polling /health cada 5s)
 - [ ] **UI-03**: La UI permite configurar modelo rembg, alpha matting, output size/quality/background, padding, autocrop, enhancement, y queue limits
 - [ ] **UI-04**: La UI tiene botón guardar (POST /config), restaurar defaults, y ver YAML actual
@@ -138,7 +138,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-04 | Phase 2 | Complete |
 | CONF-05 | Phase 2 | Complete |
 | CONF-06 | Phase 1 | Complete |
-| UI-01 | Phase 4 | Pending |
+| UI-01 | Phase 4 | Complete |
 | UI-02 | Phase 4 | Pending |
 | UI-03 | Phase 4 | Pending |
 | UI-04 | Phase 4 | Pending |

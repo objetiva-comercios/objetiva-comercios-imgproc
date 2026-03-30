@@ -78,10 +78,10 @@ Plans:
   3. Cambiar el modelo rembg, el padding o la calidad WebP en la UI y presionar Guardar persiste el cambio via POST /config
   4. La UI se ve correctamente en modo oscuro (prefers-color-scheme: dark) y en un telefono movil
 **UI hint**: yes
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
-- [ ] 04-01-PLAN.md — Router UI + health fix + tests de integracion
+- [x] 04-01-PLAN.md — Router UI + health fix + tests de integracion
 - [ ] 04-02-PLAN.md — Template HTML completo con frontend-design (UI final)
 
 ### Phase 5: Tests + Hardening
@@ -104,5 +104,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Pipeline Core + API Basica | 2/5 | In Progress|  |
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
-| 4. Web UI de Configuracion | 0/2 | Not started | - |
+| 4. Web UI de Configuracion | 1/2 | In Progress|  |
 | 5. Tests + Hardening | 0/TBD | Not started | - |
