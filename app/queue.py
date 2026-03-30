@@ -48,6 +48,8 @@ class JobRecord:
     processing_time_ms: int
     model_used: str
     timestamp: str               # ISO 8601 UTC
+    original_size: str | None = None   # "WxH" — per D-06
+    output_size: str | None = None     # "WxH" — per D-06
     error: str | None = None
 
 
@@ -195,6 +197,8 @@ class JobQueue:
                     processing_time_ms=elapsed_ms,
                     model_used=config_snapshot.rembg.model,
                     timestamp=datetime.now(timezone.utc).isoformat(),
+                    original_size=getattr(result, "original_size", None),
+                    output_size=getattr(result, "output_size", None),
                 ))
 
                 logger.info(json.dumps({

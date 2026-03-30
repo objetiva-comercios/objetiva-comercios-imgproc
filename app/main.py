@@ -85,3 +85,6 @@ app = FastAPI(
 # Importar y registrar routers
 from app.router_api import router as api_router  # noqa: E402
 app.include_router(api_router)
+
+from app.router_config import router as config_router  # noqa: E402
+app.include_router(config_router)
