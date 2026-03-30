@@ -111,57 +111,57 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PIPE-01 | — | Pending |
-| PIPE-02 | — | Pending |
-| PIPE-03 | — | Pending |
-| PIPE-04 | — | Pending |
-| PIPE-05 | — | Pending |
-| PIPE-06 | — | Pending |
-| PIPE-07 | — | Pending |
-| PIPE-08 | — | Pending |
-| PIPE-09 | — | Pending |
-| PIPE-10 | — | Pending |
-| API-01 | — | Pending |
-| API-02 | — | Pending |
-| API-03 | — | Pending |
-| API-04 | — | Pending |
-| API-05 | — | Pending |
-| API-06 | — | Pending |
-| QUEUE-01 | — | Pending |
-| QUEUE-02 | — | Pending |
-| QUEUE-03 | — | Pending |
-| QUEUE-04 | — | Pending |
-| QUEUE-05 | — | Pending |
-| CONF-01 | — | Pending |
-| CONF-02 | — | Pending |
-| CONF-03 | — | Pending |
-| CONF-04 | — | Pending |
-| CONF-05 | — | Pending |
-| CONF-06 | — | Pending |
-| UI-01 | — | Pending |
-| UI-02 | — | Pending |
-| UI-03 | — | Pending |
-| UI-04 | — | Pending |
-| UI-05 | — | Pending |
-| CLI-01 | — | Pending |
-| CLI-02 | — | Pending |
-| CLI-03 | — | Pending |
-| CLI-04 | — | Pending |
-| CLI-05 | — | Pending |
-| DOCK-01 | — | Pending |
-| DOCK-02 | — | Pending |
-| DOCK-03 | — | Pending |
-| DOCK-04 | — | Pending |
-| DOCK-05 | — | Pending |
-| TEST-01 | — | Pending |
-| TEST-02 | — | Pending |
-| TEST-03 | — | Pending |
+| PIPE-01 | Phase 1 | Pending |
+| PIPE-02 | Phase 1 | Pending |
+| PIPE-03 | Phase 1 | Pending |
+| PIPE-04 | Phase 1 | Pending |
+| PIPE-05 | Phase 1 | Pending |
+| PIPE-06 | Phase 1 | Pending |
+| PIPE-07 | Phase 1 | Pending |
+| PIPE-08 | Phase 1 | Pending |
+| PIPE-09 | Phase 1 | Pending |
+| PIPE-10 | Phase 1 | Pending |
+| API-01 | Phase 1 | Pending |
+| API-02 | Phase 1 | Pending |
+| API-03 | Phase 1 | Pending |
+| API-04 | Phase 1 | Pending |
+| API-05 | Phase 1 | Pending |
+| API-06 | Phase 2 | Pending |
+| QUEUE-01 | Phase 1 | Pending |
+| QUEUE-02 | Phase 1 | Pending |
+| QUEUE-03 | Phase 1 | Pending |
+| QUEUE-04 | Phase 1 | Pending |
+| QUEUE-05 | Phase 2 | Pending |
+| CONF-01 | Phase 1 | Pending |
+| CONF-02 | Phase 2 | Pending |
+| CONF-03 | Phase 2 | Pending |
+| CONF-04 | Phase 2 | Pending |
+| CONF-05 | Phase 2 | Pending |
+| CONF-06 | Phase 1 | Pending |
+| UI-01 | Phase 4 | Pending |
+| UI-02 | Phase 4 | Pending |
+| UI-03 | Phase 4 | Pending |
+| UI-04 | Phase 4 | Pending |
+| UI-05 | Phase 4 | Pending |
+| CLI-01 | Phase 3 | Pending |
+| CLI-02 | Phase 3 | Pending |
+| CLI-03 | Phase 3 | Pending |
+| CLI-04 | Phase 3 | Pending |
+| CLI-05 | Phase 3 | Pending |
+| DOCK-01 | Phase 1 | Pending |
+| DOCK-02 | Phase 1 | Pending |
+| DOCK-03 | Phase 1 | Pending |
+| DOCK-04 | Phase 1 | Pending |
+| DOCK-05 | Phase 1 | Pending |
+| TEST-01 | Phase 5 | Pending |
+| TEST-02 | Phase 5 | Pending |
+| TEST-03 | Phase 5 | Pending |
 
 **Coverage:**
-- v1 requirements: 43 total
-- Mapped to phases: 0
-- Unmapped: 43
+- v1 requirements: 45 total
+- Mapped to phases: 45
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-30*
-*Last updated: 2026-03-30 after initial definition*
+*Last updated: 2026-03-30 after roadmap creation*
