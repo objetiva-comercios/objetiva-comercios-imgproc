@@ -63,7 +63,10 @@ Plans:
   2. `imgproc batch ./fotos/ --csv reporte.csv` procesa todas las imagenes del directorio y genera el reporte con resultados por archivo
   3. `imgproc serve` inicia Uvicorn con la misma configuracion que docker-compose
   4. `imgproc config show` muestra la configuracion activa; `imgproc config set output.size 1200` la modifica
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — CLI Typer completo (process, batch, serve, config) + tests
 
 ### Phase 4: Web UI de Configuracion
 **Goal**: El operador puede ver el estado del servicio y modificar su configuracion desde un browser, sin tocar la terminal ni editar YAML a mano
@@ -96,6 +99,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Pipeline Core + API Basica | 2/5 | In Progress|  |
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
-| 3. CLI + Batch Offline | 0/TBD | Not started | - |
+| 3. CLI + Batch Offline | 0/1 | Not started | - |
 | 4. Web UI de Configuracion | 0/TBD | Not started | - |
 | 5. Tests + Hardening | 0/TBD | Not started | - |
