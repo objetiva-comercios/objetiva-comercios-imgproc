@@ -185,5 +185,6 @@ async def health_endpoint(request: Request):
         },
         "model_loaded": request.app.state.model_loaded,
         "model_name": request.app.state.model_name,
+        "model_swapping": getattr(request.app.state, "model_swapping", False),
         "uptime_seconds": uptime,
     }

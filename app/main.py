@@ -230,3 +230,6 @@ app.include_router(api_router)
 
 from app.router_config import router as config_router  # noqa: E402
 app.include_router(config_router)
+
+from app.router_ui import router as ui_router  # noqa: E402
+app.include_router(ui_router)
