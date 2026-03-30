@@ -90,12 +90,20 @@ async def update_config(request: Request):
     model_changed = old_model != new_model
 
     # D-07: Activar flag de supresion ANTES de escribir YAML (evita double-reload via watchdog)
+    # Se limpia con timer de 2s porque inotify en Linux puede disparar multiples IN_MODIFY
     suppress_flag = getattr(request.app.state, "watchdog_suppress_flag", None)
     if suppress_flag:
         suppress_flag.set()
 
     # Persistir config en YAML y actualizar estado en memoria
     config_manager.update_config(new_config)
+
+    # Limpiar suppress_flag despues de 2s para permitir detecciones futuras de watchdog
+    if suppress_flag:
+        async def _clear_suppress():
+            await asyncio.sleep(2)
+            suppress_flag.clear()
+        asyncio.create_task(_clear_suppress())
 
     logger.info(json.dumps({
         "event": "config_reloaded",

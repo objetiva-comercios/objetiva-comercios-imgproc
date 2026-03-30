@@ -48,8 +48,9 @@ class ConfigReloadHandler(FileSystemEventHandler):
         if not event.src_path.endswith("settings.yaml"):
             return
         # D-07: si el flag de supresion esta activo, ignorar este evento (fue escrito por POST /config)
+        # Usa ventana de tiempo (2s) en lugar de clear inmediato porque inotify en Linux
+        # puede disparar multiples IN_MODIFY para una sola escritura.
         if self._suppress_flag.is_set():
-            self._suppress_flag.clear()
             logger.info(json.dumps({
                 "level": "info",
                 "event": "watchdog_suppressed",
