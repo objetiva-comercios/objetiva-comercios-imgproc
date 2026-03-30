@@ -92,12 +92,16 @@ Plans:
   1. `pytest` pasa en verde cubriendo: decode de todos los formatos, autocrop, padding, aspect ratio, fondo blanco, tamano output, enhancement, pipeline completo
   2. Los tests de queue verifican: job completo exitoso, 503 cuando la cola esta llena, max_concurrent respetado, timeout con 504, estado actualizado correctamente
   3. Los tests de API verifican: process success con todos los headers, campos faltantes, imagen invalida, health, config GET/POST, UI sirve HTML valido, status con historial
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Gaps del processor (TEST-01) + pytest-cov + verificacion queue (TEST-02)
+- [ ] 05-02-PLAN.md — Gaps de API y config router (TEST-03) + verificacion de cobertura final
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -105,4 +109,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
 | 4. Web UI de Configuracion | 2/2 | Complete   | 2026-03-30 |
-| 5. Tests + Hardening | 0/TBD | Not started | - |
+| 5. Tests + Hardening | 0/2 | Not started | - |
