@@ -4,6 +4,9 @@ version = "1.0.0"
 requires-python = ">=3.11"
 description = "Microservicio Docker para estandarización de imágenes de producto con rembg"
 
+[project.scripts]
+imgproc = "app.cli:app"
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
