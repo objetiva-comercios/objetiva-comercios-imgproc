@@ -64,11 +64,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Docker (DOCK)
 
-- [ ] **DOCK-01**: Dockerfile basado en python:3.11-slim con modelo pre-descargado en build time
-- [ ] **DOCK-02**: docker-compose.yml con límites de recursos (mem_limit: 2g, cpus: 1.5)
-- [ ] **DOCK-03**: HEALTHCHECK con start_period: 90s (modelo tarda en cargar)
-- [ ] **DOCK-04**: Solo se monta config/ como volumen para hot-reload desde el host
-- [ ] **DOCK-05**: El container arranca limpio desde cero sin dependencias externas
+- [x] **DOCK-01**: Dockerfile basado en python:3.11-slim con modelo pre-descargado en build time
+- [x] **DOCK-02**: docker-compose.yml con límites de recursos (mem_limit: 2g, cpus: 1.5)
+- [x] **DOCK-03**: HEALTHCHECK con start_period: 90s (modelo tarda en cargar)
+- [x] **DOCK-04**: Solo se monta config/ como volumen para hot-reload desde el host
+- [x] **DOCK-05**: El container arranca limpio desde cero sin dependencias externas
 
 ### Testing (TEST)
 
@@ -148,11 +148,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLI-03 | Phase 3 | Pending |
 | CLI-04 | Phase 3 | Pending |
 | CLI-05 | Phase 3 | Pending |
-| DOCK-01 | Phase 1 | Pending |
-| DOCK-02 | Phase 1 | Pending |
-| DOCK-03 | Phase 1 | Pending |
-| DOCK-04 | Phase 1 | Pending |
-| DOCK-05 | Phase 1 | Pending |
+| DOCK-01 | Phase 1 | Complete |
+| DOCK-02 | Phase 1 | Complete |
+| DOCK-03 | Phase 1 | Complete |
+| DOCK-04 | Phase 1 | Complete |
+| DOCK-05 | Phase 1 | Complete |
 | TEST-01 | Phase 5 | Pending |
 | TEST-02 | Phase 5 | Pending |
 | TEST-03 | Phase 5 | Pending |
