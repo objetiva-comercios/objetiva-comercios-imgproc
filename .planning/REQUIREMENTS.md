@@ -31,10 +31,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Queue (QUEUE)
 
-- [ ] **QUEUE-01**: La cola usa asyncio.Semaphore con max_concurrent configurable (default 1)
-- [ ] **QUEUE-02**: Requests que exceden max_queue_size reciben 503 inmediato
-- [ ] **QUEUE-03**: Requests que esperan más de timeout_seconds reciben 504
-- [ ] **QUEUE-04**: El trabajo CPU-bound (rembg, Pillow) se ejecuta en asyncio.to_thread
+- [x] **QUEUE-01**: La cola usa asyncio.Semaphore con max_concurrent configurable (default 1)
+- [x] **QUEUE-02**: Requests que exceden max_queue_size reciben 503 inmediato
+- [x] **QUEUE-03**: Requests que esperan más de timeout_seconds reciben 504
+- [x] **QUEUE-04**: El trabajo CPU-bound (rembg, Pillow) se ejecuta en asyncio.to_thread
 - [ ] **QUEUE-05**: La cola mantiene estado en memoria: active_jobs, queued_jobs, total_processed, total_errors, job_history (últimos 50)
 
 ### Config (CONF)
@@ -127,10 +127,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | API-04 | Phase 1 | Pending |
 | API-05 | Phase 1 | Pending |
 | API-06 | Phase 2 | Pending |
-| QUEUE-01 | Phase 1 | Pending |
-| QUEUE-02 | Phase 1 | Pending |
-| QUEUE-03 | Phase 1 | Pending |
-| QUEUE-04 | Phase 1 | Pending |
+| QUEUE-01 | Phase 1 | Complete |
+| QUEUE-02 | Phase 1 | Complete |
+| QUEUE-03 | Phase 1 | Complete |
+| QUEUE-04 | Phase 1 | Complete |
 | QUEUE-05 | Phase 2 | Pending |
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 2 | Pending |
