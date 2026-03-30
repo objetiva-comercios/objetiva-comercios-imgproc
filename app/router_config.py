@@ -5,6 +5,7 @@ Endpoints:
   POST /config  — Actualiza config con deep merge, persiste YAML (CONF-03)
   GET  /status  — Metricas operacionales e historial de jobs (API-06)
 """
+import asyncio
 import json
 import logging
 
@@ -83,10 +84,15 @@ async def update_config(request: Request):
             content={"error": "validation_error", "detail": str(e)},
         )
 
-    # Detectar cambio de modelo para log (sera usado en Plan 02 para el swap)
+    # Detectar cambio de modelo ANTES de persistir
     old_model = request.app.state.model_name
     new_model = new_config.rembg.model
     model_changed = old_model != new_model
+
+    # D-07: Activar flag de supresion ANTES de escribir YAML (evita double-reload via watchdog)
+    suppress_flag = getattr(request.app.state, "watchdog_suppress_flag", None)
+    if suppress_flag:
+        suppress_flag.set()
 
     # Persistir config en YAML y actualizar estado en memoria
     config_manager.update_config(new_config)
@@ -97,6 +103,11 @@ async def update_config(request: Request):
         "model": new_config.rembg.model,
         "model_changed": model_changed,
     }))
+
+    # CONF-04: Si el modelo cambio, disparar swap de sesion ONNX
+    if model_changed:
+        from app.main import _swap_rembg_session
+        asyncio.create_task(_swap_rembg_session(request.app, new_model))
 
     return config_manager.config.model_dump()
 

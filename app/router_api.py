@@ -55,6 +55,17 @@ async def process_endpoint(
     config_manager = request.app.state.config_manager
     rembg_session = request.app.state.rembg_session
 
+    # D-01: Rechazar requests durante swap de modelo
+    if getattr(request.app.state, "model_swapping", False):
+        return JSONResponse(
+            status_code=503,
+            content=ErrorResponse(
+                error="model_swapping",
+                detail="Model swap in progress, retry in a few seconds",
+                article_id=article_id,
+            ).model_dump(),
+        )
+
     # Tomar snapshot del config (per CONF-06 — inmutable para este job)
     config_snapshot = config_manager.get_snapshot()
 
