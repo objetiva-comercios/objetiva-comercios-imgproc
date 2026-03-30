@@ -48,7 +48,11 @@ Plans:
   2. POST /config con un JSON parcial actualiza solo los campos indicados y persiste el YAML en disco
   3. Si se cambia el modelo rembg via POST /config, la sesion ONNX se recrea despues de que termine el job activo (sin interrumpir requests en vuelo)
   4. GET /status retorna total procesados, errores, tiempo promedio e historial de los ultimos 50 jobs
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Endpoints GET/POST /config + GET /status, JobRecord extendido, ConfigManager con escritura YAML
+- [ ] 02-02-PLAN.md — Watchdog hot-reload + model swap graceful + flag de supresion
 
 ### Phase 3: CLI + Batch Offline
 **Goal**: El operador puede procesar imagenes individuales o carpetas completas desde la terminal sin levantar el servidor HTTP, reutilizando el mismo pipeline ya probado
@@ -91,7 +95,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Pipeline Core + API Basica | 2/5 | In Progress|  |
-| 2. Observabilidad + Config Operacional | 0/TBD | Not started | - |
+| 2. Observabilidad + Config Operacional | 0/2 | Not started | - |
 | 3. CLI + Batch Offline | 0/TBD | Not started | - |
 | 4. Web UI de Configuracion | 0/TBD | Not started | - |
 | 5. Tests + Hardening | 0/TBD | Not started | - |
