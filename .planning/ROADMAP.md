@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 2: Observabilidad + Config Operacional** - Hot-reload de YAML sin restart, metricas de estado y config via API
 - [x] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente (completed 2026-03-30)
 - [x] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser (completed 2026-03-30)
-- [ ] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados
+- [x] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados (completed 2026-03-30)
 
 ## Phase Details
 
@@ -92,10 +92,10 @@ Plans:
   1. `pytest` pasa en verde cubriendo: decode de todos los formatos, autocrop, padding, aspect ratio, fondo blanco, tamano output, enhancement, pipeline completo
   2. Los tests de queue verifican: job completo exitoso, 503 cuando la cola esta llena, max_concurrent respetado, timeout con 504, estado actualizado correctamente
   3. Los tests de API verifican: process success con todos los headers, campos faltantes, imagen invalida, health, config GET/POST, UI sirve HTML valido, status con historial
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 05-01-PLAN.md — Gaps del processor (TEST-01) + pytest-cov + verificacion queue (TEST-02)
+- [x] 05-01-PLAN.md — Gaps del processor (TEST-01) + pytest-cov + verificacion queue (TEST-02)
 - [x] 05-02-PLAN.md — Gaps de API y config router (TEST-03) + verificacion de cobertura final
 
 ## Progress
@@ -109,4 +109,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
 | 4. Web UI de Configuracion | 2/2 | Complete   | 2026-03-30 |
-| 5. Tests + Hardening | 1/2 | In Progress|  |
+| 5. Tests + Hardening | 2/2 | Complete   | 2026-03-30 |

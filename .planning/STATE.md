@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-30T23:39:18.501Z"
+status: verifying
+stopped_at: Completed 05-tests-hardening-01-PLAN.md
+last_updated: "2026-03-30T23:42:33.331Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
   percent: 100
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 
 Phase: 05 (tests-hardening) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-03-30
 
 Progress: [████████████████████] 7/7 plans (100%)
@@ -63,6 +63,7 @@ Progress: [████████████████████] 7/7 pla
 | Phase 04-web-ui-de-configuracion P01 | 8min | 2 tasks | 5 files |
 | Phase 04-web-ui-de-configuracion P02 | 3min | 1 tasks | 1 files |
 | Phase 05-tests-hardening P02 | 2min | 2 tasks | 2 files |
+| Phase 05-tests-hardening P01 | 5 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,8 @@ Recent decisions affecting current work:
 - [Phase 04-web-ui-de-configuracion]: isnet-general-use hardcodeado no aparece en template estatico (es Jinja2 template variable) — el test lo verifica en el response renderizado por FastAPI
 - [Phase 04-web-ui-de-configuracion]: escapeHtml() implementada en tabla de jobs para sanitizar article_id — prevencion XSS basica
 - [Phase 05-tests-hardening]: Patchear app.main._swap_rembg_session (no app.router_config) porque el import es local dentro de la funcion update_config
+- [Phase 05-tests-hardening]: rembg.remove debe mockearse retornando bytes PNG — remove_background llama Image.open(BytesIO(result_bytes))
+- [Phase 05-tests-hardening]: Patch de steps del pipeline: patch('app.processor.autocrop') aísla steps sin mockear rembg — más robusto para tests de excepcion wrapping
 
 ### Pending Todos
 
@@ -113,6 +116,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T23:39:18.497Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-30T23:42:33.328Z
+Stopped at: Completed 05-tests-hardening-01-PLAN.md
 Resume file: None
