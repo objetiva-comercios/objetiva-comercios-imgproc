@@ -18,7 +18,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **PIPE-07**: El servicio aplica ajustes de brightness y contrast si están configurados
 - [ ] **PIPE-08**: El servicio codifica el resultado como WebP con calidad configurable
 - [ ] **PIPE-09**: El output es siempre RGB (sin canal alpha) de exactamente el tamaño configurado
-- [ ] **PIPE-10**: El pipeline ejecuta los steps en orden fijo: decode → rembg → autocrop → scale → composite → enhance → encode
+- [x] **PIPE-10**: El pipeline ejecuta los steps en orden fijo: decode → rembg → autocrop → scale → composite → enhance → encode
 
 ### API (API)
 
@@ -39,12 +39,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Config (CONF)
 
-- [ ] **CONF-01**: La configuración se lee de un archivo YAML (settings.yaml)
+- [x] **CONF-01**: La configuración se lee de un archivo YAML (settings.yaml)
 - [ ] **CONF-02**: GET /config retorna la configuración activa como JSON
 - [ ] **CONF-03**: POST /config actualiza valores con deep merge y guarda el YAML
 - [ ] **CONF-04**: Si rembg.model cambia via POST /config, la sesión se recrea después de que termine el job activo
 - [ ] **CONF-05**: El servicio detecta cambios en el YAML via watchdog y recarga sin restart
-- [ ] **CONF-06**: El config snapshot se toma al inicio de cada job (inmutable durante procesamiento)
+- [x] **CONF-06**: El config snapshot se toma al inicio de cada job (inmutable durante procesamiento)
 
 ### Web UI (UI)
 
@@ -120,7 +120,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PIPE-07 | Phase 1 | Pending |
 | PIPE-08 | Phase 1 | Pending |
 | PIPE-09 | Phase 1 | Pending |
-| PIPE-10 | Phase 1 | Pending |
+| PIPE-10 | Phase 1 | Complete |
 | API-01 | Phase 1 | Pending |
 | API-02 | Phase 1 | Pending |
 | API-03 | Phase 1 | Pending |
@@ -132,12 +132,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | QUEUE-03 | Phase 1 | Pending |
 | QUEUE-04 | Phase 1 | Pending |
 | QUEUE-05 | Phase 2 | Pending |
-| CONF-01 | Phase 1 | Pending |
+| CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 2 | Pending |
 | CONF-03 | Phase 2 | Pending |
 | CONF-04 | Phase 2 | Pending |
 | CONF-05 | Phase 2 | Pending |
-| CONF-06 | Phase 1 | Pending |
+| CONF-06 | Phase 1 | Complete |
 | UI-01 | Phase 4 | Pending |
 | UI-02 | Phase 4 | Pending |
 | UI-03 | Phase 4 | Pending |
