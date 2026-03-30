@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  imgproc:
+    build: .
+    container_name: imgproc
+    ports:
+      - "8010:8010"
+    volumes:
+      - ./config:/app/config    # Solo config montado para hot-reload (per DOCK-04)
+    mem_limit: 2g               # Per DOCK-02: <= 2GB RAM
+    cpus: "1.5"                 # Per DOCK-02: 1.5 cores
+    environment:
+      - OMP_NUM_THREADS=2
+      - OPENBLAS_NUM_THREADS=2
+    restart: unless-stopped
