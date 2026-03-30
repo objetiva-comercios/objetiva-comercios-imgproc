@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 3 complete: CLI + Batch Offline (process, batch, serve, config show/set via Typer)*
+*Last updated: 2026-03-30 — Phase 4 complete: Web UI de Configuracion (GET /ui autocontenida, polling status, config form, dark mode, responsive)*
