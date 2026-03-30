@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 after initialization*
+*Last updated: 2026-03-30 — Phase 2 complete: observabilidad + config operacional (hot-reload, config API, model swap, status metrics)*
