@@ -291,3 +291,33 @@ async def test_health_has_model_info(async_client: AsyncClient):
     body = response.json()
     assert "model_name" in body
     assert body["model_name"] == "isnet-general-use"
+
+
+# ---------------------------------------------------------------------------
+# POST /process — error 500 interno
+# ---------------------------------------------------------------------------
+
+async def test_process_500_internal_error(client_with_queue):
+    """POST /process con excepcion generica retorna 500 con error internal_error."""
+    client, queue = client_with_queue
+
+    # Crear imagen JPEG valida para el request
+    buf = io.BytesIO()
+    img = Image.new("RGB", (100, 100), (255, 0, 0))
+    img.save(buf, format="JPEG")
+    jpeg_bytes = buf.getvalue()
+
+    with patch.object(
+        queue,
+        "submit_job",
+        new=AsyncMock(side_effect=RuntimeError("unexpected failure")),
+    ):
+        response = await client.post(
+            "/process",
+            files={"image": ("test.jpg", jpeg_bytes, "image/jpeg")},
+            data={"article_id": "ERR-001"},
+        )
+    assert response.status_code == 500
+    body = response.json()
+    assert body["error"] == "internal_error"
+    assert body["article_id"] == "ERR-001"
