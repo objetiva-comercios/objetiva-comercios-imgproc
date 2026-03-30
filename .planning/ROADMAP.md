@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Pipeline Core + API Basica** - Pipeline completo de procesamiento de imagenes corriendo en Docker, integrable con n8n desde el dia 1
 - [ ] **Phase 2: Observabilidad + Config Operacional** - Hot-reload de YAML sin restart, metricas de estado y config via API
-- [ ] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente
+- [x] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente (completed 2026-03-30)
 - [ ] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser
 - [ ] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados
 
@@ -63,10 +63,10 @@ Plans:
   2. `imgproc batch ./fotos/ --csv reporte.csv` procesa todas las imagenes del directorio y genera el reporte con resultados por archivo
   3. `imgproc serve` inicia Uvicorn con la misma configuracion que docker-compose
   4. `imgproc config show` muestra la configuracion activa; `imgproc config set output.size 1200` la modifica
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 03-01-PLAN.md — CLI Typer completo (process, batch, serve, config) + tests
+- [x] 03-01-PLAN.md — CLI Typer completo (process, batch, serve, config) + tests
 
 ### Phase 4: Web UI de Configuracion
 **Goal**: El operador puede ver el estado del servicio y modificar su configuracion desde un browser, sin tocar la terminal ni editar YAML a mano
@@ -99,6 +99,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Pipeline Core + API Basica | 2/5 | In Progress|  |
 | 2. Observabilidad + Config Operacional | 1/2 | In Progress|  |
-| 3. CLI + Batch Offline | 0/1 | Not started | - |
+| 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
 | 4. Web UI de Configuracion | 0/TBD | Not started | - |
 | 5. Tests + Hardening | 0/TBD | Not started | - |

@@ -56,11 +56,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### CLI (CLI)
 
-- [ ] **CLI-01**: Comando `process` procesa una imagen individual usando el processor directamente (sin HTTP)
-- [ ] **CLI-02**: Comando `batch` procesa un directorio completo secuencialmente con reporte CSV opcional
-- [ ] **CLI-03**: Comando `serve` inicia el servidor HTTP (Uvicorn)
-- [ ] **CLI-04**: Comando `config show` muestra la configuración activa y `config set` modifica valores
-- [ ] **CLI-05**: El CLI reutiliza el processor directamente, sin duplicar lógica
+- [x] **CLI-01**: Comando `process` procesa una imagen individual usando el processor directamente (sin HTTP)
+- [x] **CLI-02**: Comando `batch` procesa un directorio completo secuencialmente con reporte CSV opcional
+- [x] **CLI-03**: Comando `serve` inicia el servidor HTTP (Uvicorn)
+- [x] **CLI-04**: Comando `config show` muestra la configuración activa y `config set` modifica valores
+- [x] **CLI-05**: El CLI reutiliza el processor directamente, sin duplicar lógica
 
 ### Docker (DOCK)
 
@@ -143,11 +143,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UI-03 | Phase 4 | Pending |
 | UI-04 | Phase 4 | Pending |
 | UI-05 | Phase 4 | Pending |
-| CLI-01 | Phase 3 | Pending |
-| CLI-02 | Phase 3 | Pending |
-| CLI-03 | Phase 3 | Pending |
-| CLI-04 | Phase 3 | Pending |
-| CLI-05 | Phase 3 | Pending |
+| CLI-01 | Phase 3 | Complete |
+| CLI-02 | Phase 3 | Complete |
+| CLI-03 | Phase 3 | Complete |
+| CLI-04 | Phase 3 | Complete |
+| CLI-05 | Phase 3 | Complete |
 | DOCK-01 | Phase 1 | Complete |
 | DOCK-02 | Phase 1 | Complete |
 | DOCK-03 | Phase 1 | Complete |

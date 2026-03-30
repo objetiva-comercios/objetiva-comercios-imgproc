@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-30T18:49:51.996Z"
+status: verifying
+stopped_at: "Phase 3 Plan 01 complete: CLI + Batch Offline"
+last_updated: "2026-03-30T19:25:28.635Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
-  completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  completed_phases: 3
+  total_plans: 8
+  completed_plans: 8
   percent: 100
 ---
 
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
-Status: Ready to plan
+Phase: 03 (cli-batch-offline) — EXECUTING
+Plan: 1 of 1
+Status: Phase complete — ready for verification
 Last activity: 2026-03-30
 
 Progress: [████████████████████] 7/7 plans (100%)
@@ -59,6 +59,7 @@ Progress: [████████████████████] 7/7 pla
 | Phase 01-pipeline-core-api-basica P05 | 5 | 1 tasks | 4 files |
 | Phase 02 P01 | 8 min | 2 tasks | 5 files |
 | Phase 02-observabilidad-config-operacional P02 | 6 min | 2 tasks | 4 files |
+| Phase 03 P01 | 525544 min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,8 @@ Recent decisions affecting current work:
 - [Phase 02]: JobRecord usa getattr(result, 'original_size', None) para compatibilidad con mocks de test que retornan strings
 - [Phase 02]: watchdog Observer en lifespan de FastAPI con suppress_flag (threading.Event) para evitar double-reload desde POST /config
 - [Phase 02]: _swap_rembg_session usa semaphore como barrier + asyncio.to_thread para new_session; D-02 via finally garantiza model_swapping=False
+- [Phase 03]: CLI llama process_image() sincrono sin asyncio (D-11): correcto para context CLI
+- [Phase 03]: Lazy init rembg via _rembg_session global: serve y config no cargan modelo ONNX
 
 ### Pending Todos
 
@@ -101,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T18:49:51.989Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-cli-batch-offline/03-CONTEXT.md
+Last session: 2026-03-30T19:25:28.630Z
+Stopped at: Phase 3 Plan 01 complete: CLI + Batch Offline
+Resume file: None
