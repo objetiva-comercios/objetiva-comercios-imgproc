@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-03-30T11:27:06.404Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-30T11:30:53.032Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-30)
 ## Current Position
 
 Phase: 01 (pipeline-core-api-basica) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 4 | 2 tasks | 12 files |
 | Phase 01 P03 | 163 | 1 tasks | 2 files |
+| Phase 01 P02 | 15 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [Phase 01]: yaml.safe_load siempre en ConfigManager (nunca yaml.load sin Loader — CVE conocido en PyYAML)
 - [Phase 01]: JobQueue acepta config_snapshot ya tomado por el caller — queue agnóstico al ConfigManager (alineado CONF-06)
 - [Phase 01]: asyncio.Semaphore para control de concurrencia — semaphore.release() en finally garantiza liberación ante excepciones
+- [Phase 01]: process_image es sincrona (CPU-bound); la llamada async se delega a asyncio.to_thread() en queue.py
+- [Phase 01]: Tests de pipeline unitarios mockean rembg.remove para evitar cargar el modelo ONNX en CI
 
 ### Pending Todos
 
@@ -84,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T11:27:06.400Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-03-30T11:30:53.028Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
