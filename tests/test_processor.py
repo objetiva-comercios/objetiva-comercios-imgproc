@@ -253,6 +253,33 @@ class TestAutocrop:
         result = autocrop(img, config)
         assert result.size == original_size
 
+    def test_autocrop_bbox_none(self):
+        """autocrop retorna imagen original cuando alpha es todo cero (bbox=None)."""
+        # Imagen RGBA con todos los pixeles alpha=0 (completamente transparente)
+        img = Image.new("RGBA", (200, 200), (0, 0, 0, 0))
+        config = default_config()
+        result = autocrop(img, config)
+        assert result.size == (200, 200)
+        assert result.mode == "RGBA"
+
+    def test_autocrop_removes_small_artifacts(self):
+        """_clean_alpha_artifacts elimina artefacto pequeno; autocrop recorta solo el producto."""
+        img = Image.new("RGBA", (200, 200), (0, 0, 0, 0))
+        pixels = img.load()
+        # Producto principal 50x50 en el centro (2500 pixeles opacos)
+        for y in range(75, 125):
+            for x in range(75, 125):
+                pixels[x, y] = (255, 0, 0, 255)
+        # Artefacto pequeno 2x2 en esquina (4 pixeles = 0.16% del producto)
+        for y in range(5, 7):
+            for x in range(5, 7):
+                pixels[x, y] = (255, 0, 0, 255)
+        config = default_config()
+        cropped = autocrop(img, config)
+        # Sin el artefacto, el bbox es solo el producto 50x50
+        assert cropped.width == 50
+        assert cropped.height == 50
+
 
 # ---------------------------------------------------------------------------
 # Tests: calculate_scale_and_position
@@ -490,4 +517,29 @@ class TestProcessImage:
         assert result.processing_time_ms >= 0
         # steps_applied debe incluir los pasos clave
         assert "decode" in result.steps_applied
+        assert "encode" in result.steps_applied
+
+    def test_pipeline_unknown_exception_wrapped(self, sample_jpeg):
+        """Excepcion no-ProcessingError en pipeline se envuelve en ProcessingError(step='unknown')."""
+        config = default_config()
+        mock_session = MagicMock()
+        with patch("app.processor.autocrop", side_effect=ValueError("unexpected error")):
+            with pytest.raises(ProcessingError) as exc_info:
+                process_image(sample_jpeg, "ART-ERR", config, mock_session)
+        assert exc_info.value.step == "unknown"
+        assert "unexpected error" in exc_info.value.detail
+
+    def test_process_image_enhance_not_in_steps_when_default(self, sample_jpeg):
+        """Pipeline con brightness=1.0 y contrast=1.0 NO incluye 'enhance' en steps_applied."""
+        config = default_config()
+        # Asegurar valores default (no enhancement)
+        config.enhancement.brightness = 1.0
+        config.enhancement.contrast = 1.0
+        mock_session = MagicMock()
+        mock_rgba = Image.new("RGBA", (200, 150), (255, 0, 0, 255))
+        mock_rgba_bytes = io.BytesIO()
+        mock_rgba.save(mock_rgba_bytes, format="PNG")
+        with patch("rembg.remove", return_value=mock_rgba_bytes.getvalue()):
+            result = process_image(sample_jpeg, "ART-ENH", config, mock_session)
+        assert "enhance" not in result.steps_applied
         assert "encode" in result.steps_applied
