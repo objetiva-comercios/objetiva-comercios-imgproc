@@ -27,7 +27,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **API-03**: POST /process acepta override parcial de config (JSON string, deep merge)
 - [x] **API-04**: POST /process retorna 400 para imagen corrupta, 422 para campos faltantes, 503 para cola llena, 504 para timeout
 - [x] **API-05**: GET /health retorna status, estado de la cola, modelo cargado, uptime
-- [ ] **API-06**: GET /status retorna estadísticas (total procesados, errores, avg time) e historial de últimos 50 jobs
+- [x] **API-06**: GET /status retorna estadísticas (total procesados, errores, avg time) e historial de últimos 50 jobs
 
 ### Queue (QUEUE)
 
@@ -35,13 +35,13 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **QUEUE-02**: Requests que exceden max_queue_size reciben 503 inmediato
 - [x] **QUEUE-03**: Requests que esperan más de timeout_seconds reciben 504
 - [x] **QUEUE-04**: El trabajo CPU-bound (rembg, Pillow) se ejecuta en asyncio.to_thread
-- [ ] **QUEUE-05**: La cola mantiene estado en memoria: active_jobs, queued_jobs, total_processed, total_errors, job_history (últimos 50)
+- [x] **QUEUE-05**: La cola mantiene estado en memoria: active_jobs, queued_jobs, total_processed, total_errors, job_history (últimos 50)
 
 ### Config (CONF)
 
 - [x] **CONF-01**: La configuración se lee de un archivo YAML (settings.yaml)
-- [ ] **CONF-02**: GET /config retorna la configuración activa como JSON
-- [ ] **CONF-03**: POST /config actualiza valores con deep merge y guarda el YAML
+- [x] **CONF-02**: GET /config retorna la configuración activa como JSON
+- [x] **CONF-03**: POST /config actualiza valores con deep merge y guarda el YAML
 - [ ] **CONF-04**: Si rembg.model cambia via POST /config, la sesión se recrea después de que termine el job activo
 - [ ] **CONF-05**: El servicio detecta cambios en el YAML via watchdog y recarga sin restart
 - [x] **CONF-06**: El config snapshot se toma al inicio de cada job (inmutable durante procesamiento)
@@ -126,15 +126,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | API-03 | Phase 1 | Complete |
 | API-04 | Phase 1 | Complete |
 | API-05 | Phase 1 | Complete |
-| API-06 | Phase 2 | Pending |
+| API-06 | Phase 2 | Complete |
 | QUEUE-01 | Phase 1 | Complete |
 | QUEUE-02 | Phase 1 | Complete |
 | QUEUE-03 | Phase 1 | Complete |
 | QUEUE-04 | Phase 1 | Complete |
-| QUEUE-05 | Phase 2 | Pending |
+| QUEUE-05 | Phase 2 | Complete |
 | CONF-01 | Phase 1 | Complete |
-| CONF-02 | Phase 2 | Pending |
-| CONF-03 | Phase 2 | Pending |
+| CONF-02 | Phase 2 | Complete |
+| CONF-03 | Phase 2 | Complete |
 | CONF-04 | Phase 2 | Pending |
 | CONF-05 | Phase 2 | Pending |
 | CONF-06 | Phase 1 | Complete |

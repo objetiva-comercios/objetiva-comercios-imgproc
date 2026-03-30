@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-30T16:43:12.476Z"
+status: executing
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-03-30T18:33:08.221Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Recibir cualquier imagen de producto y devolver un WebP limpio, estandarizado, listo para catalogo — sin intervencion manual, sin dependencias externas, sin configuracion compleja.
-**Current focus:** Phase 01 — pipeline-core-api-basica
+**Current focus:** Phase 02 — observabilidad-config-operacional
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 02 (observabilidad-config-operacional) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-03-30
 
 Progress: [░░░░░░░░░░] 0%
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P02 | 15 min | 2 tasks | 2 files |
 | Phase 01 P04 | 5 | 2 tasks | 3 files |
 | Phase 01-pipeline-core-api-basica P05 | 5 | 1 tasks | 4 files |
+| Phase 02 P01 | 8 min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 01-pipeline-core-api-basica]: python:3.11-slim como imagen base Docker (no alpine — musl libc rompe wheels onnxruntime y Pillow)
 - [Phase 01-pipeline-core-api-basica]: Modelo birefnet-lite descargado via new_session() en build time — queda embebido en imagen, sin descarga en runtime
 - [Phase 01-pipeline-core-api-basica]: Solo config/ montado como volumen en docker-compose — permite hot-reload de config sin rebuild de imagen
+- [Phase 02]: POST /config usa deep merge parcial + validacion Pydantic estricta — rechaza TODO el request si cualquier campo es invalido
+- [Phase 02]: JobRecord usa getattr(result, 'original_size', None) para compatibilidad con mocks de test que retornan strings
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T16:43:12.448Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-observabilidad-config-operacional/02-CONTEXT.md
+Last session: 2026-03-30T18:33:08.217Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: None
