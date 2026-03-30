@@ -9,24 +9,24 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Pipeline (PIPE)
 
-- [ ] **PIPE-01**: El servicio decodifica imágenes JPG, PNG, WebP, BMP y TIFF correctamente
-- [ ] **PIPE-02**: El servicio aplica EXIF transpose antes de procesar (fotos de celular rotadas)
-- [ ] **PIPE-03**: El servicio remueve el fondo de la imagen usando rembg con sesión global
-- [ ] **PIPE-04**: El servicio recorta al bounding box del producto (autocrop via canal alpha)
-- [ ] **PIPE-05**: El servicio escala el producto manteniendo aspect ratio (fit-inside, nunca distorsionar)
-- [ ] **PIPE-06**: El servicio compone el producto centrado sobre canvas 800x800 con fondo blanco y padding
-- [ ] **PIPE-07**: El servicio aplica ajustes de brightness y contrast si están configurados
-- [ ] **PIPE-08**: El servicio codifica el resultado como WebP con calidad configurable
-- [ ] **PIPE-09**: El output es siempre RGB (sin canal alpha) de exactamente el tamaño configurado
+- [x] **PIPE-01**: El servicio decodifica imágenes JPG, PNG, WebP, BMP y TIFF correctamente
+- [x] **PIPE-02**: El servicio aplica EXIF transpose antes de procesar (fotos de celular rotadas)
+- [x] **PIPE-03**: El servicio remueve el fondo de la imagen usando rembg con sesión global
+- [x] **PIPE-04**: El servicio recorta al bounding box del producto (autocrop via canal alpha)
+- [x] **PIPE-05**: El servicio escala el producto manteniendo aspect ratio (fit-inside, nunca distorsionar)
+- [x] **PIPE-06**: El servicio compone el producto centrado sobre canvas 800x800 con fondo blanco y padding
+- [x] **PIPE-07**: El servicio aplica ajustes de brightness y contrast si están configurados
+- [x] **PIPE-08**: El servicio codifica el resultado como WebP con calidad configurable
+- [x] **PIPE-09**: El output es siempre RGB (sin canal alpha) de exactamente el tamaño configurado
 - [x] **PIPE-10**: El pipeline ejecuta los steps en orden fijo: decode → rembg → autocrop → scale → composite → enhance → encode
 
 ### API (API)
 
-- [ ] **API-01**: POST /process acepta multipart/form-data con image (file) y article_id (string)
-- [ ] **API-02**: POST /process retorna image/webp con headers X-Article-Id, X-Processing-Time-Ms, X-Model-Used, X-Original-Size, X-Output-Size, X-Steps-Applied
-- [ ] **API-03**: POST /process acepta override parcial de config (JSON string, deep merge)
-- [ ] **API-04**: POST /process retorna 400 para imagen corrupta, 422 para campos faltantes, 503 para cola llena, 504 para timeout
-- [ ] **API-05**: GET /health retorna status, estado de la cola, modelo cargado, uptime
+- [x] **API-01**: POST /process acepta multipart/form-data con image (file) y article_id (string)
+- [x] **API-02**: POST /process retorna image/webp con headers X-Article-Id, X-Processing-Time-Ms, X-Model-Used, X-Original-Size, X-Output-Size, X-Steps-Applied
+- [x] **API-03**: POST /process acepta override parcial de config (JSON string, deep merge)
+- [x] **API-04**: POST /process retorna 400 para imagen corrupta, 422 para campos faltantes, 503 para cola llena, 504 para timeout
+- [x] **API-05**: GET /health retorna status, estado de la cola, modelo cargado, uptime
 - [ ] **API-06**: GET /status retorna estadísticas (total procesados, errores, avg time) e historial de últimos 50 jobs
 
 ### Queue (QUEUE)
@@ -111,21 +111,21 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PIPE-01 | Phase 1 | Pending |
-| PIPE-02 | Phase 1 | Pending |
-| PIPE-03 | Phase 1 | Pending |
-| PIPE-04 | Phase 1 | Pending |
-| PIPE-05 | Phase 1 | Pending |
-| PIPE-06 | Phase 1 | Pending |
-| PIPE-07 | Phase 1 | Pending |
-| PIPE-08 | Phase 1 | Pending |
-| PIPE-09 | Phase 1 | Pending |
+| PIPE-01 | Phase 1 | Complete |
+| PIPE-02 | Phase 1 | Complete |
+| PIPE-03 | Phase 1 | Complete |
+| PIPE-04 | Phase 1 | Complete |
+| PIPE-05 | Phase 1 | Complete |
+| PIPE-06 | Phase 1 | Complete |
+| PIPE-07 | Phase 1 | Complete |
+| PIPE-08 | Phase 1 | Complete |
+| PIPE-09 | Phase 1 | Complete |
 | PIPE-10 | Phase 1 | Complete |
-| API-01 | Phase 1 | Pending |
-| API-02 | Phase 1 | Pending |
-| API-03 | Phase 1 | Pending |
-| API-04 | Phase 1 | Pending |
-| API-05 | Phase 1 | Pending |
+| API-01 | Phase 1 | Complete |
+| API-02 | Phase 1 | Complete |
+| API-03 | Phase 1 | Complete |
+| API-04 | Phase 1 | Complete |
+| API-05 | Phase 1 | Complete |
 | API-06 | Phase 2 | Pending |
 | QUEUE-01 | Phase 1 | Complete |
 | QUEUE-02 | Phase 1 | Complete |

@@ -36,7 +36,7 @@ Plans:
 - [x] 01-01-PLAN.md — Scaffold proyecto + config + models + test infrastructure
 - [x] 01-02-PLAN.md — Pipeline de procesamiento completo (7 steps)
 - [x] 01-03-PLAN.md — Queue manager con asyncio.Semaphore
-- [ ] 01-04-PLAN.md — FastAPI app + endpoints HTTP + tests integracion
+- [x] 01-04-PLAN.md — FastAPI app + endpoints HTTP + tests integracion
 - [ ] 01-05-PLAN.md — Docker (Dockerfile + compose + modelo pre-descargado)
 
 ### Phase 2: Observabilidad + Config Operacional
