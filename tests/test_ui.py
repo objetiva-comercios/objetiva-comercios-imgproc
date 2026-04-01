@@ -114,6 +114,18 @@ async def test_ui_contains_valid_models(ui_client):
     assert "isnet-general-use" in resp.text  # default model debe estar
 
 
+async def test_ui_no_external_cdn(ui_client):
+    """UI-01: HTML autocontenido — sin requests a CDNs externos."""
+    import re
+    resp = await ui_client.get("/ui")
+    html = resp.text
+    assert "fonts.googleapis.com" not in html
+    assert "unpkg.com" not in html
+    # No external URLs in src/href attributes (solo SVG namespace inline permitido)
+    external_src_href = re.findall(r'(?:src|href)=["\']https?://[^\s"\'<>]+["\']', html)
+    assert len(external_src_href) == 0, f"External src/href found: {external_src_href}"
+
+
 async def test_health_includes_model_swapping(ui_client):
     """Pitfall 1: GET /health incluye model_swapping en la respuesta."""
     resp = await ui_client.get("/health")

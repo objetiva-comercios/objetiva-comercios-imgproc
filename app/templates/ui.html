@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Standardizer - Config</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼</text></svg>">
   <style>
     /* ── Reset & Custom Properties ─────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,7 +45,7 @@
 
     /* ── Base ───────────────────────────────────────────────────── */
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.5;
@@ -72,7 +71,7 @@
       color: var(--text-primary);
     }
 
-    .page-header i[data-lucide] {
+    .page-header .icon {
       color: var(--accent);
     }
 
@@ -248,7 +247,7 @@
       font-size: 0.9rem;
     }
 
-    .section-title i[data-lucide] {
+    .section-title .icon {
       color: var(--accent);
       width: 16px;
       height: 16px;
@@ -454,7 +453,7 @@
       transition: background 0.15s, opacity 0.15s;
     }
 
-    button i[data-lucide] { width: 16px; height: 16px; }
+    button .icon { width: 16px; height: 16px; }
 
     .btn-primary {
       background: var(--accent);
@@ -526,20 +525,107 @@
       background: var(--border-color);
       margin: 0.75rem 0;
     }
+
+    /* ── SVG Icons ──────────────────────────────────────────────── */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
   </style>
 </head>
 <body>
+
+<!-- SVG sprite — iconos inline (lucide@0.468.0, sin CDN externo) -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+  </symbol>
+  <symbol id="icon-loader" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v4"/>
+    <path d="m16.2 7.8 2.9-2.9"/>
+    <path d="M18 12h4"/>
+    <path d="m16.2 16.2 2.9 2.9"/>
+    <path d="M12 18v4"/>
+    <path d="m4.9 19.1 2.9-2.9"/>
+    <path d="M2 12h4"/>
+    <path d="m4.9 4.9 2.9 2.9"/>
+  </symbol>
+  <symbol id="icon-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="16" height="16" x="4" y="4" rx="2"/>
+    <rect width="6" height="6" x="9" y="9" rx="1"/>
+    <path d="M15 2v2"/>
+    <path d="M15 20v2"/>
+    <path d="M2 15h2"/>
+    <path d="M2 9h2"/>
+    <path d="M20 15h2"/>
+    <path d="M20 9h2"/>
+    <path d="M9 2v2"/>
+    <path d="M9 20v2"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m6 9 6 6 6-6"/>
+  </symbol>
+  <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+    <circle cx="9" cy="9" r="2"/>
+    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+  </symbol>
+  <symbol id="icon-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="18" height="18" x="3" y="3" rx="2"/>
+  </symbol>
+  <symbol id="icon-crop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 2v14a2 2 0 0 0 2 2h14"/>
+    <path d="M18 22V8a2 2 0 0 0-2-2H2"/>
+  </symbol>
+  <symbol id="icon-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" x2="4" y1="21" y2="14"/>
+    <line x1="4" x2="4" y1="10" y2="3"/>
+    <line x1="12" x2="12" y1="21" y2="12"/>
+    <line x1="12" x2="12" y1="8" y2="3"/>
+    <line x1="20" x2="20" y1="21" y2="16"/>
+    <line x1="20" x2="20" y1="12" y2="3"/>
+    <line x1="2" x2="6" y1="14" y2="14"/>
+    <line x1="10" x2="14" y1="8" y2="8"/>
+    <line x1="18" x2="22" y1="16" y2="16"/>
+  </symbol>
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
+    <path d="m22.54 12.43-1.42-.65-8.28 3.78a2 2 0 0 1-1.66 0l-8.29-3.78-1.42.65a1 1 0 0 0 0 1.84l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.85Z"/>
+    <path d="m22.54 16.43-1.42-.65-8.28 3.78a2 2 0 0 1-1.66 0l-8.29-3.78-1.42.65a1 1 0 0 0 0 1.84l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.85Z"/>
+  </symbol>
+  <symbol id="icon-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+    <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/>
+    <path d="M7 3v4a1 1 0 0 0 1 1h7"/>
+  </symbol>
+  <symbol id="icon-rotate-ccw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+    <path d="M3 3v5h5"/>
+  </symbol>
+  <symbol id="icon-code-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m18 16 4-4-4-4"/>
+    <path d="m6 8-4 4 4 4"/>
+    <path d="m14.5 4-5 16"/>
+  </symbol>
+</svg>
+
 <div class="container">
 
   <!-- ── Header ───────────────────────────────────────────────── -->
   <header class="page-header">
-    <i data-lucide="settings" width="22" height="22"></i>
+    <svg class="icon" width="22" height="22"><use href="#icon-settings"/></svg>
     <h1>Image Standardizer</h1>
   </header>
 
   <!-- ── Swap Banner (D-04) ───────────────────────────────────── -->
   <div id="swap-banner" class="swap-banner" style="display:none">
-    <i data-lucide="loader" width="18" height="18"></i>
+    <svg class="icon" width="18" height="18"><use href="#icon-loader"/></svg>
     Cambiando modelo, por favor espere...
   </div>
 
@@ -598,10 +684,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('rembg-content')">
       <span class="section-title">
-        <i data-lucide="cpu"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-cpu"/></svg>
         Rembg — Eliminacion de fondo
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-rembg-content"></i>
+      <svg class="icon section-chevron open" id="chevron-rembg-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="rembg-content" class="section-content open">
       <div class="form-grid">
@@ -654,10 +740,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('output-content')">
       <span class="section-title">
-        <i data-lucide="image"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-image"/></svg>
         Output — Imagen resultante
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-output-content"></i>
+      <svg class="icon section-chevron open" id="chevron-output-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="output-content" class="section-content open">
       <div class="form-grid">
@@ -692,10 +778,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('padding-content')">
       <span class="section-title">
-        <i data-lucide="square"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-square"/></svg>
         Padding — Margen alrededor del producto
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-padding-content"></i>
+      <svg class="icon section-chevron open" id="chevron-padding-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="padding-content" class="section-content open">
       <div class="form-grid">
@@ -727,10 +813,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('autocrop-content')">
       <span class="section-title">
-        <i data-lucide="crop"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-crop"/></svg>
         Autocrop — Recorte automatico
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-autocrop-content"></i>
+      <svg class="icon section-chevron open" id="chevron-autocrop-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="autocrop-content" class="section-content open">
       <div class="form-grid">
@@ -758,10 +844,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('enhancement-content')">
       <span class="section-title">
-        <i data-lucide="sliders"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-sliders"/></svg>
         Enhancement — Mejoras de imagen
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-enhancement-content"></i>
+      <svg class="icon section-chevron open" id="chevron-enhancement-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="enhancement-content" class="section-content open">
       <div class="form-grid">
@@ -792,10 +878,10 @@
   <div class="card">
     <div class="section-header" onclick="toggleSection('queue-content')">
       <span class="section-title">
-        <i data-lucide="layers"></i>
+        <svg class="icon" width="18" height="18"><use href="#icon-layers"/></svg>
         Cola — Control de concurrencia
       </span>
-      <i data-lucide="chevron-down" class="section-chevron open" id="chevron-queue-content"></i>
+      <svg class="icon section-chevron open" id="chevron-queue-content" width="18" height="18"><use href="#icon-chevron-down"/></svg>
     </div>
     <div id="queue-content" class="section-content open">
       <div class="form-grid">
@@ -823,15 +909,15 @@
   <!-- ── Action Buttons (D-04, D-06) ─────────────────────────── -->
   <div class="btn-group">
     <button class="btn-primary" id="save-btn" onclick="saveConfig()">
-      <i data-lucide="save"></i>
+      <svg class="icon" width="16" height="16"><use href="#icon-save"/></svg>
       Guardar
     </button>
     <button class="btn-secondary" id="restore-btn" onclick="restoreDefaults()">
-      <i data-lucide="rotate-ccw"></i>
+      <svg class="icon" width="16" height="16"><use href="#icon-rotate-ccw"/></svg>
       Restaurar defaults
     </button>
     <button class="btn-secondary" id="yaml-btn" onclick="toggleYaml()">
-      <i data-lucide="code-2"></i>
+      <svg class="icon" width="16" height="16"><use href="#icon-code-2"/></svg>
       Ver YAML
     </button>
   </div>
@@ -1077,6 +1163,23 @@
   }
 
   // ── Toggle YAML View (D-06) ──────────────────────────────────
+  function jsonToYaml(obj, indent) {
+    indent = indent || 0;
+    const pad = '  '.repeat(indent);
+    let out = '';
+    for (const [k, v] of Object.entries(obj)) {
+      if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
+        out += pad + k + ':\n' + jsonToYaml(v, indent + 1);
+      } else if (Array.isArray(v)) {
+        out += pad + k + ':\n';
+        v.forEach(function(item) { out += pad + '  - ' + item + '\n'; });
+      } else {
+        out += pad + k + ': ' + v + '\n';
+      }
+    }
+    return out;
+  }
+
   async function toggleYaml() {
     const el = document.getElementById('yaml-view');
     if (!el) return;
@@ -1084,7 +1187,7 @@
       try {
         const resp = await fetch('/config');
         const data = await resp.json();
-        el.textContent = JSON.stringify(data, null, 2);
+        el.textContent = jsonToYaml(data);
         el.style.display = 'block';
       } catch (e) {
         showToast('Error al cargar configuracion', 'error');
@@ -1150,8 +1253,6 @@
     setInterval(fetchHealth, 5000);
     setInterval(fetchStatus, 5000);
 
-    // Init Lucide icons
-    if (typeof lucide !== 'undefined') lucide.createIcons();
   });
 </script>
 </body>
