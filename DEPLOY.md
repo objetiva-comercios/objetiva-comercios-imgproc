@@ -125,7 +125,7 @@ curl http://localhost:8010/config
 ## Actualizacion
 
 ```bash
-cd ~/proyectos/objetiva-comercios-imgproc
+cd /opt/objetiva-comercios-imgproc
 docker compose down
 git pull
 docker compose build

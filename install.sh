@@ -25,7 +25,7 @@
 set -euo pipefail
 
 # -- Config ------------------------------------------------------------------
-INSTALL_DIR="${HOME}/proyectos"
+INSTALL_DIR="/opt"
 REPO_DIR="${INSTALL_DIR}/objetiva-comercios-imgproc"
 REPO_URL="https://github.com/objetiva-comercios/objetiva-comercios-imgproc.git"
 CONTAINER_NAME="imgproc"
@@ -150,9 +150,9 @@ echo ""
 echo "  URL local: http://localhost:8010"
 echo ""
 echo "  Comandos utiles:"
-echo "    docker compose -f $REPO_DIR/docker-compose.yml logs -f    # Ver logs"
-echo "    docker compose -f $REPO_DIR/docker-compose.yml restart    # Reiniciar"
-echo "    docker compose -f $REPO_DIR/docker-compose.yml down       # Detener"
+echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml logs -f    # Ver logs"
+echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml restart    # Reiniciar"
+echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml down       # Detener"
 echo ""
-echo "  Config: $REPO_DIR/config/settings.yaml (hot-reload, sin restart)"
+echo "  Config: /opt/objetiva-comercios-imgproc/config/settings.yaml (hot-reload, sin restart)"
 echo ""
