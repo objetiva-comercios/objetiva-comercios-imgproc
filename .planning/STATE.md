@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Completed 05-tests-hardening-01-PLAN.md
-last_updated: "2026-03-30T23:48:03.126Z"
-last_activity: 2026-03-30
+stopped_at: Completed 06-tech-debt-cleanup-01-PLAN.md
+last_updated: "2026-04-01T16:06:24.933Z"
+last_activity: 2026-04-01
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 12
-  completed_plans: 12
+  total_phases: 6
+  completed_phases: 6
+  total_plans: 13
+  completed_plans: 13
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-30)
 
 **Core value:** Recibir cualquier imagen de producto y devolver un WebP limpio, estandarizado, listo para catalogo — sin intervencion manual, sin dependencias externas, sin configuracion compleja.
-**Current focus:** Phase 05 — tests-hardening
+**Current focus:** Phase 06 — tech-debt-cleanup
 
 ## Current Position
 
-Phase: 05
-Plan: Not started
+Phase: 06 (tech-debt-cleanup) — EXECUTING
+Plan: 1 of 1
 Status: Phase complete — ready for verification
-Last activity: 2026-03-30
+Last activity: 2026-04-01
 
 Progress: [████████████████████] 7/7 plans (100%)
 
@@ -64,6 +64,7 @@ Progress: [████████████████████] 7/7 pla
 | Phase 04-web-ui-de-configuracion P02 | 3min | 1 tasks | 1 files |
 | Phase 05-tests-hardening P02 | 2min | 2 tasks | 2 files |
 | Phase 05-tests-hardening P01 | 5 | 2 tasks | 1 files |
+| Phase 06-tech-debt-cleanup P01 | 12 min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 - [Phase 05-tests-hardening]: Patchear app.main._swap_rembg_session (no app.router_config) porque el import es local dentro de la funcion update_config
 - [Phase 05-tests-hardening]: rembg.remove debe mockearse retornando bytes PNG — remove_background llama Image.open(BytesIO(result_bytes))
 - [Phase 05-tests-hardening]: Patch de steps del pipeline: patch('app.processor.autocrop') aísla steps sin mockear rembg — más robusto para tests de excepcion wrapping
+- [Phase 06-tech-debt-cleanup]: scipy y numpy declarados explicitamente en requirements.txt — dependencias transitivas ahora visibles para pip install
+- [Phase 06-tech-debt-cleanup]: SVG sprite inline con 12 simbolos lucide@0.468.0 — sin descarga de CDN externo en tiempo de renderizado
+- [Phase 06-tech-debt-cleanup]: test_ui_no_external_cdn usa regex src/href para evitar falsos positivos con xmlns SVG
 
 ### Pending Todos
 
@@ -116,6 +120,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T23:42:33.328Z
-Stopped at: Completed 05-tests-hardening-01-PLAN.md
+Last session: 2026-04-01T16:06:24.928Z
+Stopped at: Completed 06-tech-debt-cleanup-01-PLAN.md
 Resume file: None

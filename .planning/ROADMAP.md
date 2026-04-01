@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente (completed 2026-03-30)
 - [x] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser (completed 2026-03-30)
 - [x] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados (completed 2026-03-30)
-- [ ] **Phase 6: Tech Debt Cleanup** - Cerrar tech debt identificado en milestone audit: dependencias, CDN, documentacion, deprecations
+- [x] **Phase 6: Tech Debt Cleanup** - Cerrar tech debt identificado en milestone audit: dependencias, CDN, documentacion, deprecations (completed 2026-04-01)
 
 ## Phase Details
 
@@ -109,10 +109,10 @@ Plans:
   2. app/templates/ui.html no hace requests a CDNs externos (Google Fonts, unpkg.com) — todo embebido o usando system fonts
   3. CLAUDE.md constraints reflejan isnet-general-use (no birefnet-lite)
   4. app/processor.py no usa Image.Image.getdata (migrado a API actual de Pillow)
-**Plans:** 0/1 plans executed
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 06-01-PLAN.md — Tech debt cleanup (dependencias + CDN + docs + deprecation)
+- [x] 06-01-PLAN.md — Tech debt cleanup (dependencias + CDN + docs + deprecation)
 
 ## Progress
 
@@ -126,4 +126,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
 | 4. Web UI de Configuracion | 2/2 | Complete   | 2026-03-30 |
 | 5. Tests + Hardening | 2/2 | Complete   | 2026-03-30 |
-| 6. Tech Debt Cleanup | 0/1 | Not started|  |
+| 6. Tech Debt Cleanup | 1/1 | Complete   | 2026-04-01 |
