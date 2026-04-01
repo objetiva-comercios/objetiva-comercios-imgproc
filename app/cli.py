@@ -263,6 +263,18 @@ def config_set(
     """Modifica un valor de configuracion usando dotpath notation."""
     cfg_manager = ConfigManager()
     current = cfg_manager.config.model_dump()
+
+    # Validar que la clave raiz exista en AppConfig
+    root_key = key.split(".")[0]
+    if root_key not in AppConfig.model_fields:
+        valid_keys = ", ".join(sorted(AppConfig.model_fields.keys()))
+        typer.secho(
+            f"Error: clave '{root_key}' no existe. Claves validas: {valid_keys}",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(1)
+
     override = _dotpath_to_nested(key, value)
     merged = _deep_merge(current, override)
     try:

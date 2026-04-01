@@ -342,3 +342,19 @@ def test_config_set_invalid(tmp_path):
 
     assert result.exit_code == 1
     assert "Error" in result.output or "error" in result.output.lower()
+
+
+def test_config_set_invalid_key():
+    """config set con clave raiz inexistente -> exit_code 1, muestra claves validas."""
+    from app.models import AppConfig
+
+    with patch("app.cli.ConfigManager") as mock_cfg_cls:
+        mock_cfg = MagicMock()
+        mock_cfg.config = AppConfig()
+        mock_cfg_cls.return_value = mock_cfg
+
+        result = runner.invoke(app, ["config", "set", "nonexistent.key", "value"])
+
+    assert result.exit_code == 1
+    assert "no existe" in result.output.lower() or "nonexistent" in result.output.lower()
+    assert "output" in result.output  # muestra claves validas
