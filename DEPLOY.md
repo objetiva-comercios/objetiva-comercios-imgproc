@@ -3,7 +3,7 @@
 ## Instalacion rapida
 
 ```bash
-curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | sudo bash
 ```
 
 O desde una copia local del repo:

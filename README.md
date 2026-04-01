@@ -30,7 +30,7 @@ Microservicio Docker que recibe imagenes de producto de cualquier tamaño o form
 ### Opcion A: Script automatico
 
 ```bash
-curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | sudo bash
 ```
 
 El script clona el repo, construye la imagen Docker (descarga el modelo rembg en build time), levanta el servicio y ejecuta health check.
@@ -229,7 +229,7 @@ Ver [DEPLOY.md](DEPLOY.md) para instrucciones completas de deploy y troubleshoot
 Instalacion rapida:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | sudo bash
 ```
 
 El script es idempotente: detecta instalaciones previas, respalda la configuracion, y reinstala limpio.
