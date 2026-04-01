@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: CLI + Batch Offline** - Comandos process, batch, serve y config via Typer reutilizando el processor directamente (completed 2026-03-30)
 - [x] **Phase 4: Web UI de Configuracion** - Interfaz visual autocontenida para configurar y monitorear el servicio desde el browser (completed 2026-03-30)
 - [x] **Phase 5: Tests + Hardening** - Suite completa de tests unitarios e integracion, cobertura de edge cases documentados (completed 2026-03-30)
+- [ ] **Phase 6: Tech Debt Cleanup** - Cerrar tech debt identificado en milestone audit: dependencias, CDN, documentacion, deprecations
 
 ## Phase Details
 
@@ -98,10 +99,25 @@ Plans:
 - [x] 05-01-PLAN.md — Gaps del processor (TEST-01) + pytest-cov + verificacion queue (TEST-02)
 - [x] 05-02-PLAN.md — Gaps de API y config router (TEST-03) + verificacion de cobertura final
 
+### Phase 6: Tech Debt Cleanup
+**Goal**: Cerrar todo el tech debt identificado en el milestone audit v1.0: declarar dependencias transitivas, eliminar CDN externos de la UI, actualizar documentacion de constraints, y migrar API deprecated de Pillow
+**Depends on**: Phase 5
+**Requirements**: (gap closure — no new requirements)
+**Gap Closure**: Closes TECH-DEBT-01, TECH-DEBT-02, TECH-DEBT-03, TECH-DEBT-04 from v1.0-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. requirements.txt incluye scipy y numpy como dependencias explicitas
+  2. app/templates/ui.html no hace requests a CDNs externos (Google Fonts, unpkg.com) — todo embebido o usando system fonts
+  3. CLAUDE.md constraints reflejan isnet-general-use (no birefnet-lite)
+  4. app/processor.py no usa Image.Image.getdata (migrado a API actual de Pillow)
+**Plans:** 0/1 plans executed
+
+Plans:
+- [ ] 06-01-PLAN.md — Tech debt cleanup (dependencias + CDN + docs + deprecation)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -110,3 +126,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 3. CLI + Batch Offline | 1/1 | Complete   | 2026-03-30 |
 | 4. Web UI de Configuracion | 2/2 | Complete   | 2026-03-30 |
 | 5. Tests + Hardening | 2/2 | Complete   | 2026-03-30 |
+| 6. Tech Debt Cleanup | 0/1 | Not started|  |
