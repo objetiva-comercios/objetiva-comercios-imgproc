@@ -41,13 +41,13 @@ Recibir cualquier imagen de producto y devolver un WebP limpio, estandarizado, l
 - El servicio reemplaza un contenedor rembg standalone que solo removía fondos, sin estandarización
 - Corre en un VPS con recursos limitados (2GB RAM disponibles para este container, 2 CPU cores)
 - Volumen esperado: < 100 imágenes/día — no requiere infraestructura de cola compleja
-- El modelo default es birefnet-lite (~300MB) por balance calidad/RAM
+- El modelo default es isnet-general-use por balance calidad/RAM
 - Se integra a futuro con un pipeline n8n que procesa artículos de catálogo
 - Stack: Python 3.11, FastAPI, rembg, Pillow, Typer, Docker
 
 ## Constraints
 
-- **RAM**: ≤ 2 GB para el container — obliga a usar birefnet-lite y max_concurrent=1
+- **RAM**: ≤ 2 GB para el container — obliga a usar isnet-general-use y max_concurrent=1
 - **CPU**: 2 cores disponibles, container usa 1.5 — sin GPU
 - **Dependencias externas**: Ninguna — todo embebido en la imagen Docker
 - **Modelo rembg**: sesión global inicializada una vez en startup, nunca por request
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-30 — Phase 5 complete: Tests + Hardening (101 tests, 97% cobertura, processor 98%, queue 100%, router_api 100%)*
+*Last updated: 2026-04-01 — Phase 6 complete: Tech Debt Cleanup (4 items cerrados: deps explícitas, numpy vectorizado, docs modelo, UI autocontenida sin CDN). 103 tests, milestone v1.0 listo.*
