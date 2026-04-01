@@ -9,6 +9,7 @@ import logging
 import time
 from io import BytesIO
 
+import numpy as np
 import rembg
 from PIL import Image, ImageEnhance, ImageFile, ImageOps, UnidentifiedImageError
 
@@ -112,7 +113,7 @@ def remove_background(
     alpha_channel = img.split()[3]
     total_pixels = img.width * img.height
     # Contar pixeles con alpha < 128 (considerados transparentes)
-    transparent_pixels = sum(1 for p in alpha_channel.getdata() if p < 128)  # type: ignore[arg-type]
+    transparent_pixels = int((np.array(alpha_channel) < 128).sum())
     transparent_ratio = transparent_pixels / total_pixels
 
     if transparent_ratio > 0.10:
@@ -173,8 +174,6 @@ def _clean_alpha_artifacts(alpha: Image.Image, min_ratio: float = 0.01) -> Image
     Mantiene solo la region conectada mas grande. Regiones menores al min_ratio
     del area total de pixeles opacos se eliminan.
     """
-    import numpy as np
-
     arr = np.array(alpha)
     if arr.max() == 0:
         return alpha
@@ -241,7 +240,6 @@ def autocrop(img: Image.Image, config: AppConfig) -> Image.Image:
         return img
 
     # Aplicar mascara limpia al alpha ORIGINAL (preserva gradientes de rembg)
-    import numpy as np
     orig_alpha = np.array(img.split()[3])
     mask = np.array(clean_alpha) > 0
     orig_alpha[~mask] = 0

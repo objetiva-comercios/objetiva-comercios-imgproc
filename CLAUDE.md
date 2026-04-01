@@ -9,7 +9,7 @@ Microservicio Docker 100% autónomo que recibe imágenes de producto de cualquie
 
 ### Constraints
 
-- **RAM**: ≤ 2 GB para el container — obliga a usar birefnet-lite y max_concurrent=1
+- **RAM**: ≤ 2 GB para el container — obliga a usar isnet-general-use y max_concurrent=1
 - **CPU**: 2 cores disponibles, container usa 1.5 — sin GPU
 - **Dependencias externas**: Ninguna — todo embebido en la imagen Docker
 - **Modelo rembg**: sesión global inicializada una vez en startup, nunca por request
@@ -28,7 +28,7 @@ Microservicio Docker 100% autónomo que recibe imágenes de producto de cualquie
 | Python | 3.11 | Runtime del microservicio | Versión LTS estable con soporte hasta Oct 2027. rembg 2.0.74 requiere >=3.11. Evita 3.12+ por posibles incompatibilidades de wheels con onnxruntime en el build inicial. |
 | FastAPI | 0.135.2 | API HTTP async (POST /process, GET /health, GET /config) | Estándar de facto para APIs Python async en 2026. Pydantic v2 integrado, validación automática, OpenAPI/docs sin config adicional. Performance superior a Flask/Django para I/O-bound endpoints. |
 | uvicorn | 0.42.0 | ASGI server de producción | Único server ASGI maduro y production-ready para FastAPI. Instalar con `uvicorn[standard]` para incluir uvloop + httptools y doblar throughput en Linux. |
-| rembg | 2.0.74 | Remoción de fondo con IA (birefnet-lite) | La librería referente para background removal en Python. Soporta múltiples modelos ONNX incluyendo birefnet-lite. Sesión global reutilizable = el modelo carga una sola vez. Requiere Python >=3.11. |
+| rembg | 2.0.74 | Remoción de fondo con IA (isnet-general-use) | La librería referente para background removal en Python. Soporta múltiples modelos ONNX incluyendo isnet-general-use. Sesión global reutilizable = el modelo carga una sola vez. Requiere Python >=3.11. |
 | Pillow | 12.1.1 | Manipulación de imágenes (crop, scale, composite, enhance, encode WebP) | Librería PIL mantenida activamente. Soporte nativo de WebP. La única opción para manipulación de imágenes de propósito general en Python — no hay alternativa madura. |
 | onnxruntime | 1.24.4 | Inferencia del modelo ONNX (dependencia de rembg) | Dependencia directa de rembg. Usar la versión CPU (`pip install onnxruntime`) — sin GPU en este VPS. Python 3.11 tiene wheels prebuilt para manylinux. |
 ### Supporting Libraries
