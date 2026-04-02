@@ -6,7 +6,7 @@
 #   curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios-imgproc/main/install.sh | sudo bash
 #
 # O desde el VPS:
-#   bash install.sh
+#   sudo bash install.sh
 #
 # Que hace:
 #   1. Verifica dependencias (git, docker, docker compose)
@@ -25,9 +25,10 @@
 set -euo pipefail
 
 # -- Config ------------------------------------------------------------------
-INSTALL_DIR="/opt"
-REPO_DIR="${INSTALL_DIR}/objetiva-comercios-imgproc"
-REPO_URL="https://github.com/objetiva-comercios/objetiva-comercios-imgproc.git"
+GIT_USER="objetiva-comercios"
+APP_NAME="objetiva-comercios-imgproc"
+INSTALL_DIR="/opt/${GIT_USER}/${APP_NAME}"
+REPO_URL="https://github.com/${GIT_USER}/${APP_NAME}.git"
 CONTAINER_NAME="imgproc"
 HEALTH_PORT=8010
 HEALTH_ENDPOINT="/health"
@@ -65,38 +66,46 @@ ok "docker encontrado"
 docker compose version >/dev/null 2>&1 || error "docker compose v2 no esta instalado (se requiere 'docker compose', no 'docker-compose')"
 ok "docker compose v2 encontrado"
 
+# -- Proteccion contra sobreescritura de repo de desarrollo ------------------
+if [ -d "$INSTALL_DIR/.git" ]; then
+    DIRTY_FILES=$(git -C "$INSTALL_DIR" status --porcelain 2>/dev/null | wc -l)
+    if [ "$DIRTY_FILES" -gt 0 ]; then
+        error "$INSTALL_DIR tiene cambios sin commitear — parece ser un repo de desarrollo. Abortando para no pisarlo."
+    fi
+fi
+
 # -- Manejar instalacion previa ----------------------------------------------
 REINSTALL=false
-if [ -d "$REPO_DIR" ]; then
-    warn "Instalacion previa detectada en $REPO_DIR"
+if [ -d "$INSTALL_DIR" ]; then
+    warn "Instalacion previa detectada en $INSTALL_DIR"
     info "Deteniendo servicios existentes..."
-    cd "$REPO_DIR"
-    docker compose down 2>/dev/null || true
     cd "$INSTALL_DIR"
+    docker compose down 2>/dev/null || true
+    cd /tmp
 
     # Backup de config personalizada
-    if [ -f "$REPO_DIR/config/settings.yaml" ]; then
+    if [ -f "$INSTALL_DIR/config/settings.yaml" ]; then
         info "Respaldando config/settings.yaml..."
-        cp "$REPO_DIR/config/settings.yaml" "/tmp/imgproc-settings.yaml.bak"
+        cp "$INSTALL_DIR/config/settings.yaml" "/tmp/imgproc-settings.yaml.bak"
     fi
 
     info "Eliminando instalacion anterior..."
-    rm -rf "$REPO_DIR"
+    rm -rf "$INSTALL_DIR"
     REINSTALL=true
 fi
 
 # -- Clonar repositorio -----------------------------------------------------
 info "Clonando repositorio..."
-mkdir -p "$INSTALL_DIR"
-git clone "$REPO_URL" "$REPO_DIR"
-ok "Repositorio clonado en $REPO_DIR"
+mkdir -p "/opt/${GIT_USER}"
+git clone "$REPO_URL" "$INSTALL_DIR"
+ok "Repositorio clonado en $INSTALL_DIR"
 
-cd "$REPO_DIR"
+cd "$INSTALL_DIR"
 
 # -- Restaurar config --------------------------------------------------------
 if [ "$REINSTALL" = true ] && [ -f "/tmp/imgproc-settings.yaml.bak" ]; then
     info "Restaurando config/settings.yaml..."
-    cp "/tmp/imgproc-settings.yaml.bak" "$REPO_DIR/config/settings.yaml"
+    cp "/tmp/imgproc-settings.yaml.bak" "$INSTALL_DIR/config/settings.yaml"
     rm -f "/tmp/imgproc-settings.yaml.bak"
     ok "Configuracion restaurada"
 fi
@@ -150,9 +159,9 @@ echo ""
 echo "  URL local: http://localhost:8010"
 echo ""
 echo "  Comandos utiles:"
-echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml logs -f    # Ver logs"
-echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml restart    # Reiniciar"
-echo "    docker compose -f /opt/objetiva-comercios-imgproc/docker-compose.yml down       # Detener"
+echo "    cd $INSTALL_DIR && docker compose logs -f    # Ver logs"
+echo "    cd $INSTALL_DIR && docker compose restart    # Reiniciar"
+echo "    cd $INSTALL_DIR && docker compose down       # Detener"
 echo ""
-echo "  Config: /opt/objetiva-comercios-imgproc/config/settings.yaml (hot-reload, sin restart)"
+echo "  Config: $INSTALL_DIR/config/settings.yaml (hot-reload, sin restart)"
 echo ""

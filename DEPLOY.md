@@ -9,8 +9,10 @@ curl -sL https://raw.githubusercontent.com/objetiva-comercios/objetiva-comercios
 O desde una copia local del repo:
 
 ```bash
-bash install.sh
+sudo bash install.sh
 ```
+
+El servicio se instala en `/opt/objetiva-comercios/objetiva-comercios-imgproc/`.
 
 ## Requisitos
 
@@ -94,6 +96,8 @@ Cuando se integre con Traefik, agregar labels al `docker-compose.yml`, comentar 
 ## Comandos utiles
 
 ```bash
+cd /opt/objetiva-comercios/objetiva-comercios-imgproc
+
 # Ver logs en tiempo real
 docker compose logs -f
 
@@ -125,7 +129,7 @@ curl http://localhost:8010/config
 ## Actualizacion
 
 ```bash
-cd /opt/objetiva-comercios-imgproc
+cd /opt/objetiva-comercios/objetiva-comercios-imgproc
 docker compose down
 git pull
 docker compose build
@@ -159,7 +163,7 @@ docker compose build --no-cache
 ## Estructura del proyecto
 
 ```
-objetiva-comercios-imgproc/
+/opt/objetiva-comercios/objetiva-comercios-imgproc/
 ├── app/
 │   ├── main.py           # Entrypoint FastAPI, startup/shutdown
 │   ├── processor.py      # Pipeline de procesamiento de imagen
