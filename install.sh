@@ -143,6 +143,8 @@ if [ $RETRIES -eq $MAX_RETRIES ]; then
 fi
 
 # -- Resultado final ----------------------------------------------------------
+TAILSCALE_IP=$(tailscale ip -4 2>/dev/null || echo "")
+
 echo ""
 echo "=========================================="
 echo -e "  ${GREEN}Image Standardizer — Instalado${NC}"
@@ -156,7 +158,10 @@ echo "    GET  /config   — Configuracion activa"
 echo "    POST /config   — Actualizar configuracion"
 echo "    GET  /ui       — Web UI de configuracion"
 echo ""
-echo "  URL local: http://localhost:8010"
+echo "  URL local: http://localhost:${HEALTH_PORT}"
+if [ -n "$TAILSCALE_IP" ]; then
+echo "  URL Tailscale: http://${TAILSCALE_IP}:${HEALTH_PORT}"
+fi
 echo ""
 echo "  Comandos utiles:"
 echo "    cd $INSTALL_DIR && docker compose logs -f    # Ver logs"

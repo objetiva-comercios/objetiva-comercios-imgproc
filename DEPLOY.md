@@ -138,6 +138,27 @@ docker compose up -d
 
 El `install.sh` tambien maneja actualizaciones: detecta la instalacion previa, respalda la config, y reinstala desde cero.
 
+## Verificacion post-deploy
+
+Despues de instalar, verificar que todo funciona:
+
+```bash
+# 1. Health check
+curl http://localhost:8010/health
+
+# 2. Procesar imagen de prueba
+curl -X POST http://localhost:8010/process \
+  -F "image=@cualquier-foto.jpg" \
+  -F "article_id=TEST001" \
+  --output test.webp
+
+# 3. Verificar que el output es WebP 800x800
+file test.webp
+# test.webp: RIFF (little-endian) data, Web/P image
+```
+
+Si el health check responde `{"status":"healthy"}` y la imagen se procesa correctamente, el deploy esta completo.
+
 ## Troubleshooting
 
 ### El container tarda mucho en arrancar
